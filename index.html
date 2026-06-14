@@ -556,6 +556,13 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   gtag('js', new Date());
   gtag('config', 'G-W75MCPXJNH');
 </script>
+<script>
+function trackWsp(label){
+  if(typeof gtag==='function'){
+    gtag('event','click_whatsapp',{event_category:'contacto',event_label:label||'general'});
+  }
+}
+</script>
 </head>
 <body>
 
@@ -576,10 +583,10 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
       </div>
     </div>
     <div class="waf-card-footer">
-      <a class="waf-card-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Responder por WhatsApp →</a>
+      <a class="waf-card-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios"  onclick="trackWsp('card')"  target="_blank" rel="noopener noreferrer">💬 Responder por WhatsApp →</a>
     </div>
   </div>
-  <a class="waf" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">&#128172;</a>
+  <a class="waf" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" onclick="trackWsp('boton-fijo')" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">&#128172;</a>
 </div>
 
 <!-- TICKER -->
@@ -620,7 +627,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
       <a href="#contacto">Contacto</a>
       <a href="#calculadora">Calculadora</a>
     </div>
-    <a class="nct" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">&#128172; Cotización gratis</a>
+    <a class="nct" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" onclick="trackWsp('nav')" target="_blank" rel="noopener noreferrer">&#128172; Cotización gratis</a>
     <button class="hbg" id="hbg" aria-label="Abrir menú" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </button>
@@ -636,7 +643,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   <a href="#clientes" onclick="closeMenu()">🏢 Clientes</a>
   <a href="#contacto" onclick="closeMenu()">📍 Contacto</a>
   <a href="#calculadora" onclick="closeMenu()">🔢 Calculadora NFPA</a>
-  <a class="mob-menu-cta" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Cotización gratis por WhatsApp</a>
+  <a class="mob-menu-cta" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" onclick="trackWsp('menu-movil')" target="_blank" rel="noopener noreferrer">💬 Cotización gratis por WhatsApp</a>
 </div>
 
 <!-- HERO -->
@@ -651,7 +658,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
       <div class="slogan">"El mejor aliado para tu seguridad"</div>
       <p>Recarga y mantenimiento de extintores, instalación de sistemas contra incendios, rociadores, detectores y mucho más. Atendemos todo tipo de negocio en Guayaquil, Samborondón y Daule.</p>
       <div class="hbs">
-        <a class="btn-main" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">&#128172; Escribir por WhatsApp</a>
+        <a class="btn-main" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" onclick="trackWsp('hero')" target="_blank" rel="noopener noreferrer">&#128172; Escribir por WhatsApp</a>
         <a class="btn-ghost" href="#servicios">Ver servicios &#8595;</a>
       </div>
       <div class="hstats">
@@ -1013,7 +1020,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   </div>
   <h2>&#191;Tu extintor está al día?</h2>
   <p>Escríbenos ahora. Presupuesto hoy mismo, gratis y sin compromiso.</p>
-  <a class="btn-main btn-cta-main" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">&#128172; Escribir por WhatsApp</a>
+  <a class="btn-main btn-cta-main" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" onclick="trackWsp('cta')" target="_blank" rel="noopener noreferrer">&#128172; Escribir por WhatsApp</a>
 </div>
 
 <!-- CONTACTO -->
