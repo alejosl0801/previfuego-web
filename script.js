@@ -143,22 +143,37 @@ function animateCounter(el){
   requestAnimationFrame(step);
 }
 
+/* ── Autoplay ── */
+var _ap={};
+function startAp(id){
+  if(_ap[id])clearInterval(_ap[id]);
+  _ap[id]=setInterval(function(){moveCarr(id,1);},4500);
+}
+function stopAp(id){clearInterval(_ap[id]);_ap[id]=null;}
+
 /* ── Init al cargar ── */
 document.addEventListener('DOMContentLoaded',function(){
   /* Touch swipe en carruseles */
   document.querySelectorAll('.carr').forEach(function(carr){
-    var id=carr.id,sx=0,sy=0;
-    carr.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+    var id=carr.id,sx=0,sy=0,rt=null;
+    carr.addEventListener('touchstart',function(e){
+      sx=e.touches[0].clientX;sy=e.touches[0].clientY;
+      stopAp(id);if(rt)clearTimeout(rt);
+    },{passive:true});
     carr.addEventListener('touchend',function(e){
       var dx=sx-e.changedTouches[0].clientX;
       var dy=sy-e.changedTouches[0].clientY;
       if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40)moveCarr(id,dx>0?1:-1);
+      rt=setTimeout(function(){startAp(id);},3000);
     });
+    carr.addEventListener('mouseenter',function(){stopAp(id);});
+    carr.addEventListener('mouseleave',function(){startAp(id);});
   });
 
   /* Auto-init all carousels */
   document.querySelectorAll('.carr').forEach(function(carr){
     initCarr(carr.id);
+    startAp(carr.id);
   });
 
   /* Show all gallery groups */
