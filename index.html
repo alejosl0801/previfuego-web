@@ -7,8 +7,6 @@
 <meta name="description" content="Previfuego — El mejor aliado para tu seguridad. Protección contra incendios en Guayaquil. Más de 25 años de experiencia. Recarga, mantenimiento, sistemas CI. Certificados NFPA.">
 <meta name="keywords" content="extintores guayaquil, recarga extintores guayaquil, mantenimiento extintores, sistemas contra incendios guayaquil, certificado nfpa10 ecuador">
 <meta name="author" content="Previfuego — Protección Contra Incendios Guayaquil">
-<link rel="preconnect" href="https://wa.me">
-<link rel="dns-prefetch" href="https://wa.me">
 <link rel="dns-prefetch" href="https://www.google.com">
 <title>Previfuego — El mejor aliado para tu seguridad | Guayaquil</title>
 <link rel="icon" href="img/logo-previfuego.jpg" type="image/jpeg">
@@ -121,13 +119,6 @@ nav{background:#fff;border-bottom:1px solid var(--bo);position:sticky;top:0;z-in
 .sec-d{font-size:16px;color:var(--g);max-width:580px;line-height:1.8;margin-bottom:52px;}
 .sep{width:48px;height:4px;background:linear-gradient(90deg,#CC2200,#8B1A1A);border-radius:2px;margin-bottom:20px;box-shadow:0 1px 6px rgba(150,0,0,.4);}
 
-/* FOTO GRID */
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;height:360px;}
-.fi{border-radius:18px;overflow:hidden;position:relative;background:#111;}
-.fi img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .5s,opacity .3s;}
-.fi:hover img{transform:scale(1.05);opacity:.88;}
-.fi-lbl{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff;font-size:13px;font-weight:600;padding:28px 16px 14px;}
-@media(max-width:700px){.fg{grid-template-columns:1fr;height:auto;}.fi{height:220px;}}
 
 /* ALERTA BOMBEROS */
 .alerta-box{background:linear-gradient(135deg,#FFF2F2,#FFF8F8);border:2px solid #8B1A1A;border-radius:20px;padding:36px;display:flex;gap:24px;align-items:flex-start;margin-bottom:52px;}
@@ -366,18 +357,6 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
 .waf-card{background:#fff;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.05);width:300px;display:none;transform:translateY(16px) scale(.97);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .2s;overflow:hidden;}
 .waf-wrap:hover .waf-card,.waf-wrap.open .waf-card{display:block;transform:translateY(0) scale(1);opacity:1;}
 
-/* GARANTÍA */
-.garantia-sec{background:linear-gradient(135deg,#0a0000,#1a0404);padding:60px 24px;}
-.garantia-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-.garantia-badge{display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#CC2200,#8B1010);border-radius:50%;width:200px;height:200px;margin:0 auto;box-shadow:0 12px 48px rgba(180,0,0,.5),inset 0 1px 0 rgba(255,120,80,.2),0 0 0 8px rgba(180,30,30,.15);}
-.garantia-badge-n{font-size:56px;font-weight:800;color:#fff;line-height:1;}
-.garantia-badge-l{font-size:13px;color:rgba(255,255,255,.85);font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-top:4px;}
-.garantia-items{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
-.garantia-item{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;}
-.garantia-item-ico{font-size:22px;flex-shrink:0;margin-top:2px;}
-.garantia-item-t{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
-.garantia-item-d{font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;}
-@media(max-width:700px){.garantia-inner{grid-template-columns:1fr;gap:28px;}.garantia-badge{width:160px;height:160px;}.garantia-badge-n{font-size:44px;}}
 
 /* LOGOS CLIENTES */
 .logos-sec{padding:48px 24px;background:#fff;border-top:1px solid var(--bo);border-bottom:1px solid var(--bo);}
@@ -662,7 +641,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-bg" style="background-image:url('img/hero-extintores.jpg');"></div>
+  <div class="hero-bg" style="background-image:url('img/hero-extintores.webp');" aria-hidden="true"></div>
   <div class="hero-ov"></div>
   <div class="hero-c">
     <div>
@@ -1099,7 +1078,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
           <div class="calc-res-title">📋 Resultado según NFPA 10</div>
           <div class="calc-res-item"><span class="calc-res-label">Extintores PQS requeridos</span><span class="calc-res-val" id="resPQS">—</span></div>
           <div class="calc-res-item"><span class="calc-res-label">Capacidad mínima recomendada</span><span class="calc-res-val" id="resCap">—</span></div>
-          <div class="calc-res-item" id="resCO2row"><span class="calc-res-label">Extintor CO₂ (cocina industrial)</span><span class="calc-res-val" id="resCO2">—</span></div>
+          <div class="calc-res-item" id="resCO2row" style="display:none"><span class="calc-res-label">Extintor CO₂ (cocina industrial)</span><span class="calc-res-val" id="resCO2">—</span></div>
           <div class="calc-res-item" id="resTipoKrow" style="display:none"><span class="calc-res-label">Extintor Tipo K (obligatorio)</span><span class="calc-res-val" id="resTipoK">1 mínimo</span></div>
           <div class="calc-note" id="resNota"></div>
         </div>
@@ -1174,7 +1153,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
           <div class="calc-res-item"><span class="calc-res-label">Rociadores estimados</span><span class="calc-res-val" id="ciRociadores">—</span></div>
           <div class="calc-res-item"><span class="calc-res-label">Tubería principal recomendada</span><span class="calc-res-val" id="ciTuberia">—</span></div>
           <div class="calc-res-item"><span class="calc-res-label">Bomba recomendada</span><span class="calc-res-val" id="ciBombaRes">—</span></div>
-          <div class="calc-res-item" id="ciJockeyRow"><span class="calc-res-label">Bomba Jockey (presurización)</span><span class="calc-res-val">Requerida</span></div>
+          <div class="calc-res-item" id="ciJockeyRow" style="display:none"><span class="calc-res-label">Bomba Jockey (presurización)</span><span class="calc-res-val">Requerida</span></div>
           <div class="calc-note" id="ciNota"></div>
         </div>
       </div>
@@ -1188,7 +1167,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
     <div>
       <div class="fl">PREVIFUEGO</div>
       <div class="ft">Protección Contra Incendios &mdash; Guayaquil, Ecuador</div>
-      <div class="ft" style="margin-top:4px;">&#128172; Instagram: @PYROSHIELD_GYE</div>
+      <div class="ft" style="margin-top:4px;">&#128247; Instagram: @PYROSHIELD_GYE</div>
     </div>
     <div style="text-align:right;">
       <div class="ft">&#169; 2026 &mdash; El mejor aliado para tu seguridad</div>
