@@ -552,13 +552,18 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   .logos-track{animation:none;}
 }
 </style>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W75MCPXJNH"></script>
+<!-- Google tag (gtag.js) — se omite si el dispositivo es del propietario -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-W75MCPXJNH');
+  if (!localStorage.getItem('pf_owner')) {
+    var _ga = document.createElement('script');
+    _ga.async = true;
+    _ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-W75MCPXJNH';
+    document.head.appendChild(_ga);
+    gtag('js', new Date());
+    gtag('config', 'G-W75MCPXJNH');
+  }
 </script>
 <script>
 function trackWsp(label){

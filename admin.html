@@ -250,6 +250,7 @@ function showLoginError(msg) {
 
 function onSignedIn() {
   _dashboardReady = true;
+  localStorage.setItem('pf_owner', '1'); // marca este dispositivo como propietario
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   loadData(7, document.querySelectorAll('.rtab')[1]);
