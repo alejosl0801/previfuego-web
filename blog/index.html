@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blog de Seguridad contra Incendios Guayaquil | Previfuego</title>
+<meta name="description" content="Guías prácticas sobre extintores, inspecciones de Bomberos, sistemas CO₂ y normativa NFPA en Guayaquil. Todo lo que necesitas saber para cumplir la norma.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://previfuego.com.ec/blog/">
+<meta property="og:title" content="Blog de Seguridad contra Incendios | Previfuego Guayaquil">
+<meta property="og:description" content="Guías prácticas sobre extintores, inspecciones de Bomberos, sistemas CO₂ y normativa NFPA en Guayaquil.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://previfuego.com.ec/blog/">
+<meta property="og:image" content="https://previfuego.com.ec/img/logo-previfuego.jpg">
+<link rel="icon" href="../img/logo-previfuego.jpg" type="image/jpeg">
+<meta name="theme-color" content="#c0392b">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--r:#c0392b;--r2:#a93226;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#222;--border:rgba(255,255,255,.08);--text:#e8e8e8;--muted:rgba(255,255,255,.55);}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--dark);color:var(--text);}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+/* NAV */
+nav{background:rgba(15,15,15,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.nw{max-width:1120px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nl{display:flex;align-items:center;gap:12px;}
+.nli{width:46px;height:46px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#1a0505;display:flex;align-items:center;justify-content:center;border:1px solid rgba(192,57,43,.3);}
+.nli img{width:100%;height:100%;object-fit:contain;padding:3px;}
+.nlt{font-size:20px;font-weight:800;color:var(--r);letter-spacing:-0.5px;line-height:1;}
+.nls{font-size:11px;color:var(--muted);font-weight:500;margin-top:1px;}
+.nm{display:flex;gap:20px;}
+.nm a{font-size:13px;font-weight:600;color:var(--text);transition:color .15s;white-space:nowrap;opacity:.85;}
+.nm a:hover{color:var(--r);opacity:1;}
+.nct{background:var(--r);color:#fff;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;transition:all .15s;white-space:nowrap;flex-shrink:0;}
+.nct:hover{background:var(--r2);transform:translateY(-1px);}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:none;margin-left:8px;}
+.hbg span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .25s;}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hbg.open span:nth-child(2){opacity:0;}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:900px){.nm{display:none;}.hbg{display:flex;}}
+.mob-menu{display:none;position:fixed;inset:0;top:68px;background:var(--dark);z-index:99;padding:24px;flex-direction:column;gap:4px;border-top:1px solid var(--border);overflow-y:auto;}
+.mob-menu.open{display:flex;}
+.mob-menu a{font-size:16px;font-weight:700;color:var(--text);padding:14px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.mob-menu a::after{content:'→';opacity:.3;font-size:14px;}
+.mob-menu a:hover{color:var(--r);}
+.mob-menu-cta{margin-top:16px;background:var(--r)!important;color:#fff!important;padding:16px!important;border-radius:12px!important;border:none!important;justify-content:center!important;font-size:16px!important;}
+.mob-menu-cta::after{display:none!important;}
+
+/* HERO */
+.blog-hero{background:linear-gradient(135deg,#0f0f0f 0%,#1a0505 50%,#0f0f0f 100%);border-bottom:1px solid var(--border);padding:72px 24px 64px;}
+.blog-hero-inner{max-width:760px;margin:0 auto;text-align:center;}
+.blog-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.35);color:#e87070;font-size:11px;font-weight:700;padding:5px 14px;border-radius:30px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;}
+.blog-hero h1{font-size:clamp(32px,5vw,52px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1.5px;margin-bottom:14px;}
+.blog-hero h1 span{color:var(--r);}
+.blog-hero p{font-size:17px;color:var(--muted);line-height:1.75;}
+
+/* GRID */
+.blog-section{max-width:1080px;margin:0 auto;padding:60px 24px 80px;}
+.blog-section-title{font-size:13px;font-weight:700;color:var(--r);letter-spacing:2px;text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:12px;}
+.blog-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
+@media(max-width:680px){.cards{grid-template-columns:1fr;}}
+
+.card{background:var(--dark2);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .25s;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;inset:0;border-radius:16px;border:1px solid transparent;transition:border-color .25s;}
+.card:hover{transform:translateY(-5px);border-color:rgba(192,57,43,.4);box-shadow:0 20px 60px rgba(192,57,43,.12);}
+.card-icon{width:52px;height:52px;background:rgba(192,57,43,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.card-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.5px;}
+.card-dot{width:3px;height:3px;background:var(--r);border-radius:50%;}
+.card h2{font-size:18px;font-weight:800;color:#fff;line-height:1.3;letter-spacing:-.3px;}
+.card p{font-size:14px;color:var(--muted);line-height:1.7;flex:1;}
+.card-link{display:inline-flex;align-items:center;gap:6px;background:var(--r);color:#fff;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;transition:all .15s;align-self:flex-start;margin-top:auto;}
+.card-link:hover{background:var(--r2);transform:translateX(3px);}
+
+/* WA STICKY */
+.wa-btn{position:fixed;bottom:28px;right:28px;z-index:999;background:var(--r);color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 24px rgba(192,57,43,.5);animation:pulse-wa 2.5s infinite;}
+@keyframes pulse-wa{0%,100%{box-shadow:0 6px 24px rgba(192,57,43,.5),0 0 0 0 rgba(192,57,43,.4);}50%{box-shadow:0 6px 24px rgba(192,57,43,.5),0 0 0 12px rgba(192,57,43,0);}}
+.wa-btn:hover{background:var(--r2);transform:scale(1.08);}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:1px solid var(--border);padding:40px 24px;text-align:center;}
+footer p{font-size:13px;color:var(--muted);}
+footer a{color:var(--r);}
+footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Menú principal">
+  <div class="nw">
+    <a class="nl" href="https://previfuego.com.ec/">
+      <div class="nli"><img src="../img/logo-previfuego.webp" alt="Previfuego logo" onerror="this.style.display='none'"></div>
+      <div><div class="nlt">PREVIFUEGO</div><div class="nls">Protección Contra Incendios · Guayaquil</div></div>
+    </a>
+    <div class="nm">
+      <a href="https://previfuego.com.ec/#servicios">Servicios</a>
+      <a href="https://previfuego.com.ec/#galeria">Galería</a>
+      <a href="https://previfuego.com.ec/#calculadora">Calculadoras</a>
+      <a href="https://previfuego.com.ec/#contacto">Contacto</a>
+      <a href="/blog/" style="color:var(--r);opacity:1;">Blog</a>
+    </div>
+    <a class="nct" href="https://wa.me/593981983024?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Cotización gratis</a>
+    <button class="hbg" id="hbg" aria-label="Abrir menú" onclick="document.getElementById('hbg').classList.toggle('open');document.getElementById('mobMenu').classList.toggle('open');">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a href="https://previfuego.com.ec/#servicios">🧯 Servicios</a>
+  <a href="https://previfuego.com.ec/#galeria">📸 Galería</a>
+  <a href="https://previfuego.com.ec/#calculadora">🔢 Calculadoras</a>
+  <a href="https://previfuego.com.ec/#contacto">📍 Contacto</a>
+  <a href="/blog/">📝 Blog</a>
+  <a class="mob-menu-cta" href="https://wa.me/593981983024?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Cotización gratis por WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="blog-tag">📝 Blog · Recursos</div>
+    <h1>Guía de <span>Seguridad<br>contra Incendios</span></h1>
+    <p>Todo lo que necesitas saber para cumplir la norma en Guayaquil — extintores, inspecciones de Bomberos, sistemas CO₂ y mucho más.</p>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div class="blog-section">
+  <div class="blog-section-title">Artículos recientes</div>
+  <div class="cards">
+
+    <article class="card">
+      <div class="card-icon">🏛️</div>
+      <div class="card-meta">
+        <span>Junio 2026</span><span class="card-dot"></span><span>⏱ 5 min de lectura</span>
+      </div>
+      <h2>Requisitos del Cuerpo de Bomberos de Guayaquil 2026 para locales comerciales</h2>
+      <p>Documentos, equipos y procedimientos que necesita tu local para aprobar la inspección y obtener el permiso de Bomberos este año.</p>
+      <a class="card-link" href="requisitos-bomberos-guayaquil-2026.html">Leer más →</a>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">🧯</div>
+      <div class="card-meta">
+        <span>Junio 2026</span><span class="card-dot"></span><span>⏱ 4 min de lectura</span>
+      </div>
+      <h2>¿Cada cuánto se recarga un extintor en Ecuador? Guía NFPA 10</h2>
+      <p>Inspección anual, mantenimiento cada 6 años, prueba hidrostática cada 12 años — todo lo que exige la norma NFPA 10 y qué pasa si no cumples.</p>
+      <a class="card-link" href="cada-cuanto-se-recarga-extintor-ecuador.html">Leer más →</a>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">🔥</div>
+      <div class="card-meta">
+        <span>Mayo 2026</span><span class="card-dot"></span><span>⏱ 6 min de lectura</span>
+      </div>
+      <h2>Tipos de extintores y cuál necesita tu negocio en Guayaquil</h2>
+      <p>PQS, CO₂, Tipo K, espuma, agua — para cada tipo de fuego y negocio hay un extintor correcto. Aprende a elegir el tuyo.</p>
+      <a class="card-link" href="tipos-de-extintores-cual-necesita-tu-negocio.html">Leer más →</a>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">🍳</div>
+      <div class="card-meta">
+        <span>Mayo 2026</span><span class="card-dot"></span><span>⏱ 5 min de lectura</span>
+      </div>
+      <h2>Sistema CO₂ para cocinas industriales: qué es y por qué Bomberos lo exige en Guayaquil</h2>
+      <p>Todo sobre el sistema fijo de supresión CO₂ para restaurantes, hoteles y cocinas industriales — qué es, qué exige la NFPA 96 y cuánto cuesta.</p>
+      <a class="card-link" href="sistema-co2-cocinas-industriales-guayaquil.html">Leer más →</a>
+    </article>
+
+  </div>
+</div>
+
+<!-- WA STICKY -->
+<a class="wa-btn" href="https://wa.me/593981983024?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <a href="https://previfuego.com.ec/">Previfuego</a> · Protección Contra Incendios Guayaquil · <a href="https://wa.me/593981983024">+593 98 198 3024</a></p>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog de Seguridad contra Incendios — Previfuego",
+  "url": "https://previfuego.com.ec/blog/",
+  "description": "Guías prácticas sobre extintores, inspecciones de Bomberos, sistemas CO₂ y normativa NFPA en Guayaquil.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Previfuego",
+    "url": "https://previfuego.com.ec",
+    "logo": {"@type": "ImageObject", "url": "https://previfuego.com.ec/img/logo-previfuego.jpg"}
+  }
+}
+</script>
+</body>
+</html>
