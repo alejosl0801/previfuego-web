@@ -161,7 +161,7 @@
 </div>
 
 <!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://accounts.google.com/gsi/client" defer onload="tryAutoLogin()"></script>
 <script>
 // ── CONFIG — reemplaza con tus valores ──────────────────────────────────────
 var CLIENT_ID   = '567264051247-56mvm7omibdr6j0l4p6jgru1p1eibvt6.apps.googleusercontent.com';
@@ -169,20 +169,47 @@ var PROPERTY_ID = '541273352';
 // ────────────────────────────────────────────────────────────────────────────
 
 var _token = null;
+var _tokenExpiry = 0;
+var _tokenClient = null;
+
+function initTokenClient() {
+  _tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    prompt: '',
+    callback: function(res) {
+      if (res.error) { showLoginError('Error: ' + res.error); return; }
+      _token = res.access_token;
+      _tokenExpiry = Date.now() + (res.expires_in - 60) * 1000;
+      localStorage.setItem('pf_token', _token);
+      localStorage.setItem('pf_expiry', _tokenExpiry);
+      onSignedIn();
+    }
+  });
+}
 
 function signIn() {
+  if (CLIENT_ID.startsWith('TU_')) {
+    showLoginError('⚠️ Esta página aún no está configurada.');
+    return;
+  }
+  initTokenClient();
+  _tokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+function tryAutoLogin() {
+  var saved = localStorage.getItem('pf_token');
+  var expiry = parseInt(localStorage.getItem('pf_expiry') || '0');
+  if (saved && expiry > Date.now()) {
+    _token = saved;
+    _tokenExpiry = expiry;
+    onSignedIn();
+    return;
+  }
+  // Try silent refresh (no popup)
   if (!CLIENT_ID.startsWith('TU_')) {
-    google.accounts.oauth2.initTokenClient({
-      client_id: CLIENT_ID,
-      scope: 'https://www.googleapis.com/auth/analytics.readonly',
-      callback: function(res) {
-        if (res.error) { showLoginError('Error: ' + res.error); return; }
-        _token = res.access_token;
-        onSignedIn(res);
-      }
-    }).requestAccessToken();
-  } else {
-    showLoginError('⚠️ Esta página aún no está configurada. Contacta al administrador.');
+    initTokenClient();
+    _tokenClient.requestAccessToken({ prompt: '' });
   }
 }
 
@@ -191,7 +218,7 @@ function showLoginError(msg) {
   el.textContent = msg; el.style.display = 'block';
 }
 
-function onSignedIn(res) {
+function onSignedIn() {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   loadData(7, document.querySelectorAll('.rtab')[1]);
@@ -199,6 +226,8 @@ function onSignedIn(res) {
 
 function signOut() {
   _token = null;
+  localStorage.removeItem('pf_token');
+  localStorage.removeItem('pf_expiry');
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('content').style.display = 'none';
