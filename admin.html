@@ -171,21 +171,37 @@ var PROPERTY_ID = '541273352';
 var _token = null;
 var _tokenExpiry = 0;
 var _tokenClient = null;
+var _renewTimer = null;
+var _dashboardReady = false;
 
-function initTokenClient() {
+function initTokenClient(promptMode) {
   _tokenClient = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: 'https://www.googleapis.com/auth/analytics.readonly',
-    prompt: '',
+    prompt: promptMode || '',
     callback: function(res) {
-      if (res.error) { showLoginError('Error: ' + res.error); return; }
+      if (res.error) {
+        // Silent refresh failed → show login button
+        if (!_dashboardReady) showLoginScreen();
+        return;
+      }
       _token = res.access_token;
-      _tokenExpiry = Date.now() + (res.expires_in - 60) * 1000;
+      var expiresIn = (res.expires_in || 3600) - 120; // renew 2 min before expiry
+      _tokenExpiry = Date.now() + expiresIn * 1000;
       localStorage.setItem('pf_token', _token);
-      localStorage.setItem('pf_expiry', _tokenExpiry);
-      onSignedIn();
+      localStorage.setItem('pf_expiry', String(_tokenExpiry));
+      localStorage.setItem('pf_authorized', '1');
+      // Schedule automatic silent renewal
+      if (_renewTimer) clearTimeout(_renewTimer);
+      _renewTimer = setTimeout(silentRenew, expiresIn * 1000);
+      if (!_dashboardReady) onSignedIn();
     }
   });
+}
+
+function silentRenew() {
+  initTokenClient('');
+  _tokenClient.requestAccessToken({ prompt: '' });
 }
 
 function signIn() {
@@ -193,24 +209,38 @@ function signIn() {
     showLoginError('⚠️ Esta página aún no está configurada.');
     return;
   }
-  initTokenClient();
+  initTokenClient('consent');
   _tokenClient.requestAccessToken({ prompt: 'consent' });
 }
 
 function tryAutoLogin() {
+  if (CLIENT_ID.startsWith('TU_')) return;
   var saved = localStorage.getItem('pf_token');
   var expiry = parseInt(localStorage.getItem('pf_expiry') || '0');
+  var wasAuthorized = localStorage.getItem('pf_authorized') === '1';
+  // Token still valid — use it directly, no network call
   if (saved && expiry > Date.now()) {
     _token = saved;
     _tokenExpiry = expiry;
+    var remaining = expiry - Date.now() - 120000;
+    if (remaining > 0) {
+      if (_renewTimer) clearTimeout(_renewTimer);
+      _renewTimer = setTimeout(silentRenew, remaining);
+    }
     onSignedIn();
     return;
   }
-  // Try silent refresh (no popup)
-  if (!CLIENT_ID.startsWith('TU_')) {
-    initTokenClient();
+  // Token expired but user previously authorized → silent refresh (no popup)
+  if (wasAuthorized) {
+    initTokenClient('');
     _tokenClient.requestAccessToken({ prompt: '' });
   }
+  // Never authorized → show login button
+}
+
+function showLoginScreen() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
 }
 
 function showLoginError(msg) {
@@ -219,6 +249,7 @@ function showLoginError(msg) {
 }
 
 function onSignedIn() {
+  _dashboardReady = true;
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   loadData(7, document.querySelectorAll('.rtab')[1]);
@@ -226,8 +257,11 @@ function onSignedIn() {
 
 function signOut() {
   _token = null;
+  _dashboardReady = false;
+  if (_renewTimer) clearTimeout(_renewTimer);
   localStorage.removeItem('pf_token');
   localStorage.removeItem('pf_expiry');
+  localStorage.removeItem('pf_authorized');
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('content').style.display = 'none';
