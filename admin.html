@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panel Analytics — Previfuego</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f0f0f;color:#e5e5e5;min-height:100vh}
+
+    /* ── Login ── */
+    #loginScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:24px;padding:24px}
+    .login-logo{width:72px;height:72px;background:#c0392b;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:32px}
+    .login-title{font-size:22px;font-weight:700;color:#fff}
+    .login-sub{font-size:14px;color:#888;text-align:center;max-width:320px}
+    #googleBtn{display:flex;align-items:center;gap:12px;background:#fff;color:#1a1a1a;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .15s}
+    #googleBtn:hover{opacity:.9}
+    #googleBtn svg{width:20px;height:20px;flex-shrink:0}
+
+    /* ── Dashboard ── */
+    #dashboard{display:none;padding:24px;max-width:1100px;margin:0 auto}
+    .dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+    .dash-brand{display:flex;align-items:center;gap:12px}
+    .dash-logo{width:40px;height:40px;background:#c0392b;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .dash-title{font-size:20px;font-weight:700;color:#fff}
+    .dash-sub{font-size:13px;color:#888}
+    #logoutBtn{background:none;border:1px solid #333;color:#888;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;transition:all .15s}
+    #logoutBtn:hover{border-color:#c0392b;color:#c0392b}
+
+    /* ── Range tabs ── */
+    .range-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .rtab{background:#1a1a1a;border:1px solid #2a2a2a;color:#aaa;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;transition:all .15s}
+    .rtab.active,.rtab:hover{background:#c0392b;border-color:#c0392b;color:#fff}
+
+    /* ── Summary cards ── */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px}
+    .card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:20px}
+    .card-label{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .card-val{font-size:32px;font-weight:700;color:#fff}
+    .card-val.red{color:#e74c3c}
+    .card-note{font-size:12px;color:#555;margin-top:4px}
+
+    /* ── Chart area (simple bar) ── */
+    .section-title{font-size:15px;font-weight:600;color:#ccc;margin-bottom:14px}
+    .chart-wrap{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin-bottom:24px;overflow-x:auto}
+    .bars{display:flex;align-items:flex-end;gap:6px;height:80px;min-width:400px}
+    .bar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px}
+    .bar{background:#c0392b;border-radius:4px 4px 0 0;min-height:3px;transition:height .3s;cursor:default}
+    .bar:hover{background:#e74c3c}
+    .bar-label{font-size:10px;color:#555;white-space:nowrap}
+
+    /* ── Tables ── */
+    .tables-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+    @media(max-width:700px){.tables-grid{grid-template-columns:1fr}}
+    .tbl-wrap{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:20px;overflow:hidden}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{text-align:left;color:#555;font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:0 0 10px}
+    td{padding:8px 0;border-top:1px solid #222;color:#ccc}
+    td:last-child,th:last-child{text-align:right}
+    tr:hover td{color:#fff}
+
+    /* ── Sessions log ── */
+    .log-wrap{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:20px;margin-bottom:24px;overflow-x:auto}
+    .log-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+    .log-table th{text-align:left;color:#555;font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:0 8px 10px}
+    .log-table td{padding:9px 8px;border-top:1px solid #1f1f1f;color:#bbb}
+    .log-table tr:hover td{background:#1f1f1f;color:#fff}
+    .badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+    .badge-mobile{background:#1e3a5f;color:#5b9bd5}
+    .badge-desktop{background:#1e3d1e;color:#5bb55b}
+    .badge-tablet{background:#3d2e1e;color:#c0894a}
+
+    /* ── Loading / Error ── */
+    #loading{text-align:center;padding:60px;color:#555;display:none}
+    #errorMsg{background:#2a1010;border:1px solid #5a1010;color:#e07070;border-radius:10px;padding:16px;margin-bottom:20px;display:none;font-size:13px}
+    .spinner{width:32px;height:32px;border:3px solid #2a2a2a;border-top-color:#c0392b;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div id="loginScreen">
+  <div class="login-logo">🔥</div>
+  <div class="login-title">Panel de Analíticas</div>
+  <div class="login-sub">Inicia sesión con la cuenta de Google que gestiona tu Analytics</div>
+  <button id="googleBtn" onclick="signIn()">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+    </svg>
+    Continuar con Google
+  </button>
+  <div id="loginError" style="color:#e07070;font-size:13px;display:none"></div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div id="dashboard">
+  <div class="dash-header">
+    <div class="dash-brand">
+      <div class="dash-logo">🔥</div>
+      <div>
+        <div class="dash-title">Previfuego Analytics</div>
+        <div class="dash-sub" id="userEmail">previfuego.com.ec</div>
+      </div>
+    </div>
+    <button id="logoutBtn" onclick="signOut()">Cerrar sesión</button>
+  </div>
+
+  <div id="errorMsg"></div>
+
+  <div class="range-tabs">
+    <button class="rtab active" onclick="loadData(1,this)">Hoy</button>
+    <button class="rtab" onclick="loadData(7,this)">7 días</button>
+    <button class="rtab" onclick="loadData(30,this)">30 días</button>
+    <button class="rtab" onclick="loadData(90,this)">90 días</button>
+  </div>
+
+  <div id="loading"><div class="spinner"></div>Cargando datos…</div>
+
+  <div id="content" style="display:none">
+    <!-- Summary cards -->
+    <div class="cards">
+      <div class="card"><div class="card-label">Sesiones</div><div class="card-val red" id="cSessions">—</div><div class="card-note" id="cSessNote"></div></div>
+      <div class="card"><div class="card-label">Usuarios únicos</div><div class="card-val" id="cUsers">—</div></div>
+      <div class="card"><div class="card-label">Ciudades</div><div class="card-val" id="cCities">—</div></div>
+      <div class="card"><div class="card-label">Dispositivos</div><div class="card-val" id="cDevices">—</div></div>
+    </div>
+
+    <!-- Trend chart -->
+    <div class="chart-wrap" id="chartWrap" style="display:none">
+      <div class="section-title">Sesiones por día</div>
+      <div class="bars" id="barsEl"></div>
+    </div>
+
+    <!-- Cities + Devices tables -->
+    <div class="tables-grid">
+      <div class="tbl-wrap">
+        <div class="section-title">Por ciudad</div>
+        <table><thead><tr><th>Ciudad</th><th>País</th><th>Sesiones</th></tr></thead>
+        <tbody id="tblCities"></tbody></table>
+      </div>
+      <div class="tbl-wrap">
+        <div class="section-title">Por dispositivo</div>
+        <table><thead><tr><th>Tipo</th><th>Sesiones</th><th>Usuarios</th></tr></thead>
+        <tbody id="tblDevices"></tbody></table>
+      </div>
+    </div>
+
+    <!-- Sessions log -->
+    <div class="log-wrap">
+      <div class="section-title">Registro de visitas</div>
+      <table class="log-table">
+        <thead><tr><th>Fecha</th><th>Ciudad</th><th>País</th><th>Dispositivo</th><th style="text-align:right">Sesiones</th></tr></thead>
+        <tbody id="tblLog"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+// ── CONFIG — reemplaza con tus valores ──────────────────────────────────────
+var CLIENT_ID   = 'TU_CLIENT_ID_AQUI.apps.googleusercontent.com';
+var PROPERTY_ID = 'TU_PROPERTY_ID_AQUI'; // solo el número, ej: 123456789
+// ────────────────────────────────────────────────────────────────────────────
+
+var _token = null;
+
+function signIn() {
+  if (!CLIENT_ID.startsWith('TU_')) {
+    google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: 'https://www.googleapis.com/auth/analytics.readonly',
+      callback: function(res) {
+        if (res.error) { showLoginError('Error: ' + res.error); return; }
+        _token = res.access_token;
+        onSignedIn(res);
+      }
+    }).requestAccessToken();
+  } else {
+    showLoginError('⚠️ Esta página aún no está configurada. Contacta al administrador.');
+  }
+}
+
+function showLoginError(msg) {
+  var el = document.getElementById('loginError');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+function onSignedIn(res) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  loadData(7, document.querySelectorAll('.rtab')[1]);
+}
+
+function signOut() {
+  _token = null;
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('content').style.display = 'none';
+}
+
+function loadData(days, btn) {
+  document.querySelectorAll('.rtab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('content').style.display = 'none';
+  document.getElementById('errorMsg').style.display = 'none';
+
+  var startDate = days === 1 ? 'today' : (days + 'daysAgo');
+
+  fetch('https://analyticsdata.googleapis.com/v1beta/properties/' + PROPERTY_ID + ':runReport', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + _token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      dateRanges: [{ startDate: startDate, endDate: 'today' }],
+      dimensions: [
+        { name: 'date' },
+        { name: 'city' },
+        { name: 'country' },
+        { name: 'deviceCategory' }
+      ],
+      metrics: [
+        { name: 'sessions' },
+        { name: 'activeUsers' }
+      ],
+      orderBys: [{ dimension: { dimensionName: 'date' }, desc: true }],
+      limit: 200
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    document.getElementById('loading').style.display = 'none';
+    if (data.error) { showError(data.error.message); return; }
+    renderDashboard(data, days);
+    document.getElementById('content').style.display = 'block';
+  })
+  .catch(function(err){
+    document.getElementById('loading').style.display = 'none';
+    showError('No se pudo conectar con Analytics: ' + err.message);
+  });
+}
+
+function showError(msg) {
+  var el = document.getElementById('errorMsg');
+  el.textContent = '⚠️ ' + msg; el.style.display = 'block';
+}
+
+function renderDashboard(data, days) {
+  var rows = data.rows || [];
+  var totalSessions = 0, totalUsers = 0;
+  var cities = {}, devices = {}, byDate = {};
+  var cityCount = 0;
+
+  rows.forEach(function(row) {
+    var date = row.dimensionValues[0].value;
+    var city = row.dimensionValues[1].value;
+    var country = row.dimensionValues[2].value;
+    var device = row.dimensionValues[3].value;
+    var sess = parseInt(row.metricValues[0].value) || 0;
+    var users = parseInt(row.metricValues[1].value) || 0;
+
+    totalSessions += sess;
+    totalUsers += users;
+
+    var cityKey = city + '|' + country;
+    if (!cities[cityKey]) { cities[cityKey] = { city: city, country: country, sessions: 0 }; cityCount++; }
+    cities[cityKey].sessions += sess;
+
+    if (!devices[device]) devices[device] = { sessions: 0, users: 0 };
+    devices[device].sessions += sess;
+    devices[device].users += users;
+
+    if (!byDate[date]) byDate[date] = 0;
+    byDate[date] += sess;
+  });
+
+  document.getElementById('cSessions').textContent = totalSessions.toLocaleString();
+  document.getElementById('cSessNote').textContent = days === 1 ? 'hoy' : 'últimos ' + days + ' días';
+  document.getElementById('cUsers').textContent = totalUsers.toLocaleString();
+  document.getElementById('cCities').textContent = Object.keys(cities).length;
+  document.getElementById('cDevices').textContent = Object.keys(devices).length;
+
+  // Chart (only for multi-day ranges)
+  var chartWrap = document.getElementById('chartWrap');
+  if (days > 1) {
+    chartWrap.style.display = 'block';
+    var dates = Object.keys(byDate).sort();
+    var maxVal = Math.max.apply(null, Object.values(byDate)) || 1;
+    var barsEl = document.getElementById('barsEl');
+    barsEl.innerHTML = '';
+    dates.forEach(function(d) {
+      var v = byDate[d] || 0;
+      var pct = Math.round((v / maxVal) * 76);
+      var label = d.slice(4,6) + '/' + d.slice(6,8);
+      var col = document.createElement('div');
+      col.className = 'bar-col';
+      col.innerHTML = '<div class="bar" style="height:' + pct + 'px" title="' + label + ': ' + v + ' sesiones"></div>'
+                    + '<div class="bar-label">' + label + '</div>';
+      barsEl.appendChild(col);
+    });
+  } else {
+    chartWrap.style.display = 'none';
+  }
+
+  // Cities table
+  var citiesArr = Object.values(cities).sort(function(a,b){return b.sessions - a.sessions;});
+  var tblCities = document.getElementById('tblCities');
+  tblCities.innerHTML = '';
+  if (citiesArr.length === 0) {
+    tblCities.innerHTML = '<tr><td colspan="3" style="color:#555;text-align:center;padding:20px">Sin datos para este período</td></tr>';
+  } else {
+    citiesArr.slice(0,15).forEach(function(c) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + c.city + '</td><td style="color:#555">' + c.country + '</td><td>' + c.sessions + '</td>';
+      tblCities.appendChild(tr);
+    });
+  }
+
+  // Devices table
+  var devNames = { mobile: '📱 Móvil', desktop: '💻 Escritorio', tablet: '📟 Tablet' };
+  var devArr = Object.entries(devices).sort(function(a,b){return b[1].sessions - a[1].sessions;});
+  var tblDevices = document.getElementById('tblDevices');
+  tblDevices.innerHTML = '';
+  devArr.forEach(function(d) {
+    var name = devNames[d[0]] || d[0];
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + name + '</td><td>' + d[1].sessions + '</td><td>' + d[1].users + '</td>';
+    tblDevices.appendChild(tr);
+  });
+
+  // Sessions log
+  var tblLog = document.getElementById('tblLog');
+  tblLog.innerHTML = '';
+  if (rows.length === 0) {
+    tblLog.innerHTML = '<tr><td colspan="5" style="color:#555;text-align:center;padding:20px">Sin visitas en este período</td></tr>';
+  } else {
+    rows.forEach(function(row) {
+      var rawDate = row.dimensionValues[0].value;
+      var fmtDate = rawDate.slice(0,4) + '-' + rawDate.slice(4,6) + '-' + rawDate.slice(6,8);
+      var city = row.dimensionValues[1].value;
+      var country = row.dimensionValues[2].value;
+      var device = row.dimensionValues[3].value;
+      var sess = row.metricValues[0].value;
+      var badgeClass = device === 'mobile' ? 'badge-mobile' : device === 'desktop' ? 'badge-desktop' : 'badge-tablet';
+      var deviceLabel = device === 'mobile' ? '📱 Móvil' : device === 'desktop' ? '💻 Desktop' : '📟 Tablet';
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + fmtDate + '</td>'
+                   + '<td>' + city + '</td>'
+                   + '<td style="color:#555">' + country + '</td>'
+                   + '<td><span class="badge ' + badgeClass + '">' + deviceLabel + '</span></td>'
+                   + '<td style="text-align:right">' + sess + '</td>';
+      tblLog.appendChild(tr);
+    });
+  }
+}
+</script>
+</body>
+</html>
