@@ -570,6 +570,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
 function trackWsp(label){
   if(typeof gtag==='function'){
     gtag('event','click_whatsapp',{event_category:'contacto',event_label:label||'general'});
+    gtag('event','conversion_event_contact');
   }
 }
 </script>
