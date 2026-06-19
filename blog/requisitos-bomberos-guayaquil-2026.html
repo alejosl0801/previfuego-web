@@ -107,6 +107,14 @@ footer p{font-size:13px;color:var(--muted);}
 footer a{color:var(--r);}
 footer a:hover{text-decoration:underline;}
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W75MCPXJNH"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-W75MCPXJNH');
+function trackWsp(l){if(typeof gtag==='function')gtag('event','click_whatsapp',{event_category:'contacto',event_label:l||'blog'});}
+</script>
 </head>
 <body>
 
@@ -124,7 +132,7 @@ footer a:hover{text-decoration:underline;}
       <a href="https://previfuego.com.ec/#contacto">Contacto</a>
       <a href="/blog/" style="color:var(--r);opacity:1;">Blog</a>
     </div>
-    <a class="nct" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Cotización gratis</a>
+    <a class="nct" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" onclick="trackWsp('blog')">💬 Cotización gratis</a>
     <button class="hbg" id="hbg" aria-label="Abrir menú" onclick="document.getElementById('hbg').classList.toggle('open');document.getElementById('mobMenu').classList.toggle('open');">
       <span></span><span></span><span></span>
     </button>
@@ -136,7 +144,7 @@ footer a:hover{text-decoration:underline;}
   <a href="https://previfuego.com.ec/#calculadora">🔢 Calculadoras</a>
   <a href="https://previfuego.com.ec/#contacto">📍 Contacto</a>
   <a href="/blog/">📝 Blog</a>
-  <a class="mob-menu-cta" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer">💬 Cotización gratis por WhatsApp</a>
+  <a class="mob-menu-cta" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" onclick="trackWsp('blog')">💬 Cotización gratis por WhatsApp</a>
 </div>
 
 <!-- BREADCRUMB -->
@@ -186,7 +194,7 @@ footer a:hover{text-decoration:underline;}
 
     <div class="info-box">
       <strong>💡 Consejo práctico</strong>
-      Los certificados de mantenimiento de extintores deben estar vigentes al momento de la inspección. Un extintor vencido o sin etiqueta de mantenimiento es la causa número uno de rechazo. <a href="https://wa.me/593983583325?text=Necesito%20certificados%20de%20mantenimiento%20de%20extintores">Contáctanos</a> y te emitimos los certificados el mismo día.
+      Los certificados de mantenimiento de extintores deben estar vigentes al momento de la inspección. Un extintor vencido o sin etiqueta de mantenimiento es la causa número uno de rechazo. <a href="https://wa.me/593983583325?text=Necesito%20certificados%20de%20mantenimiento%20de%20extintores" onclick="trackWsp('blog')">Contáctanos</a> y te emitimos los certificados el mismo día.
     </div>
 
     <h2>Equipos de protección que exige la inspección</h2>
@@ -267,16 +275,16 @@ footer a:hover{text-decoration:underline;}
   <div class="cta-box">
     <h3>¿Necesitas ayuda con esto?</h3>
     <p>Contáctanos gratis — revisamos tu local, emitimos los certificados de mantenimiento y te acompañamos en la inspección de Bomberos.</p>
-    <a class="cta-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20ayuda%20con%20los%20requisitos%20de%20Bomberos%20para%20mi%20local" target="_blank" rel="noopener noreferrer">💬 Escribir por WhatsApp ahora</a>
+    <a class="cta-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20ayuda%20con%20los%20requisitos%20de%20Bomberos%20para%20mi%20local" target="_blank" rel="noopener noreferrer" onclick="trackWsp('blog')">💬 Escribir por WhatsApp ahora</a>
   </div>
 </div>
 
 <!-- WA STICKY -->
-<a class="wa-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">💬</a>
+<a class="wa-btn" href="https://wa.me/593983583325?text=Hola,%20necesito%20información%20sobre%20protección%20contra%20incendios" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" onclick="trackWsp('blog')">💬</a>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 <a href="https://previfuego.com.ec/">Previfuego</a> · Protección Contra Incendios Guayaquil · <a href="https://wa.me/593983583325">+593 98 358 3325</a> · <a href="/blog/">Blog</a></p>
+  <p>© 2026 <a href="https://previfuego.com.ec/">Previfuego</a> · Protección Contra Incendios Guayaquil · <a href="https://wa.me/593983583325" onclick="trackWsp('blog')">+593 98 358 3325</a> · <a href="/blog/">Blog</a></p>
 </footer>
 
 <script type="application/ld+json">
