@@ -180,6 +180,16 @@ document.addEventListener('DOMContentLoaded',function(){
     startAp(carr.id);
   });
 
+  /* Sector items — tap to expand on mobile */
+  document.querySelectorAll('.sector-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      if(window.innerWidth>500)return;
+      var open=item.classList.contains('expanded');
+      document.querySelectorAll('.sector-item').forEach(function(i){i.classList.remove('expanded');});
+      if(!open)item.classList.add('expanded');
+    });
+  });
+
   /* Show all gallery groups */
   document.querySelectorAll('.gal-group').forEach(function(g){g.classList.add('visible');});
   var galGrid=document.getElementById('galGroups');if(galGrid)galGrid.classList.add('show-all');

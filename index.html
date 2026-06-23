@@ -503,8 +503,25 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   .p-t{font-size:13px;}
   .p-d{font-size:12px;}
   /* --- SECTORES --- */
-  .sector-item{flex:0 0 100%;}
-  .sector-tooltip{display:none!important;}
+  .sector-item{flex:0 0 100%;flex-wrap:wrap;align-items:center;}
+  .sector-item .sector-ico,.sector-item>div{flex-shrink:0;}
+  .sector-tooltip{
+    display:none;
+    position:static;
+    bottom:auto;left:auto;transform:none;
+    background:#f9f4f4;
+    border:1px solid rgba(178,34,34,.15);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-top:10px;
+    box-shadow:none;
+    min-width:auto;
+    width:100%;
+    flex:0 0 100%;
+  }
+  .sector-tooltip::after{display:none;}
+  .sector-item.expanded .sector-tooltip{display:block;}
+  .sector-item.expanded{border-color:var(--r);}
   /* --- PRODUCTOS --- */
   .pyro-t{font-size:20px;}
   .pyro-s{font-size:13px;}
