@@ -24,10 +24,12 @@ function switchCat(cat,btn){
     g.classList.toggle('visible',cat==='all'||g.id==='gal-'+cat);
   });
   if(cat==='all'){
+    grid.classList.add('show-all');
     grid.style.gridTemplateColumns='';
     grid.style.maxWidth='';
     grid.style.margin='';
   }else{
+    grid.classList.remove('show-all');
     grid.style.gridTemplateColumns='1fr';
     grid.style.maxWidth='640px';
     grid.style.margin='0 auto';
@@ -180,6 +182,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   /* Show all gallery groups */
   document.querySelectorAll('.gal-group').forEach(function(g){g.classList.add('visible');});
+  var galGrid=document.getElementById('galGroups');if(galGrid)galGrid.classList.add('show-all');
 
   /* Contadores animados */
   var counters=document.querySelectorAll('.counter[data-target]');

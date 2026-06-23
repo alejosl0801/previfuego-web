@@ -472,10 +472,8 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   /* --- GALERÍA --- */
   .gal-sec{padding:40px 16px;}
   /* --- GALERÍA MÓVIL: 1 carrusel a la vez --- */
-  .gal-group.visible ~ .gal-group.visible{display:none;}
-  .gal-cats{margin-bottom:16px;}
-  .gal-cats{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;scrollbar-width:none;margin-bottom:20px;}
-  .gal-cats::-webkit-scrollbar{display:none;}
+  .gal-groups:not(.show-all) .gal-group.visible ~ .gal-group.visible{display:none;}
+  .gal-cats{margin-bottom:16px;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
   .gal-cat-btn{flex-shrink:0;padding:8px 14px;font-size:12px;white-space:nowrap;}
   .gal-groups{grid-template-columns:1fr!important;gap:16px;}
   .gal-group-title{font-size:11px;margin-bottom:10px;}
