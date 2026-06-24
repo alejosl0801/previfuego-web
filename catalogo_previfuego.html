@@ -107,29 +107,32 @@ body{font-family:'Inter',Arial,sans-serif;background:#d0d0d0;color:#1a1a1a;}
 
 /* Photo grid for about page */
 .about-photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;}
-.about-photo{border-radius:8px;overflow:hidden;height:42mm;}
+.about-photo{border-radius:8px;overflow:hidden;height:52mm;}
 .about-photo img{width:100%;height:100%;object-fit:cover;}
 
 /* Diferenciadores */
-.dif-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.dif-item{background:#fafafa;border-radius:8px;padding:10px 12px;border-left:3px solid var(--g);}
+.dif-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:8px;flex:1;min-height:0;}
+.dif-item{background:#fafafa;border-radius:8px;padding:12px 14px;border-left:3px solid var(--g);min-height:0;}
 .dif-icon{font-size:16px;margin-bottom:5px;}
 .dif-title{font-size:9.5px;font-weight:800;color:#111;margin-bottom:3px;}
 .dif-text{font-size:8.5px;color:#555;line-height:1.5;}
 
 /* Servicios */
-.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:1;}
-.svc-card{border-radius:10px;overflow:hidden;border:1px solid #eee;display:flex;flex-direction:column;}
-.svc-photo{height:36mm;overflow:hidden;}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:1;
+  grid-auto-rows:1fr;min-height:0;}
+.svc-card{border-radius:10px;overflow:hidden;border:1px solid #eee;
+  display:flex;flex-direction:column;min-height:0;}
+.svc-photo{flex:0 0 58%;min-height:0;overflow:hidden;}
 .svc-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-.svc-body{padding:8px 10px;flex:1;}
+.svc-body{padding:8px 10px;flex:1;overflow:hidden;}
 .svc-tag{font-size:7px;font-weight:700;color:var(--r);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
 .svc-name{font-size:11px;font-weight:900;color:#111;margin-bottom:4px;line-height:1.2;}
 .svc-desc{font-size:8px;color:#555;line-height:1.55;}
 
 /* Trabajos realizados */
-.trab-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;flex:1;}
-.trab-item{border-radius:8px;overflow:hidden;position:relative;}
+.trab-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;flex:1;
+  grid-auto-rows:1fr;min-height:0;}
+.trab-item{border-radius:8px;overflow:hidden;position:relative;min-height:0;}
 .trab-item img{width:100%;height:100%;object-fit:cover;display:block;}
 .trab-caption{
   position:absolute;bottom:0;left:0;right:0;
@@ -152,9 +155,12 @@ body{font-family:'Inter',Arial,sans-serif;background:#d0d0d0;color:#1a1a1a;}
 
 /* Tarifas */
 .prices-intro{font-size:10px;color:#444;line-height:1.7;margin-bottom:10px;}
-table{width:100%;border-collapse:collapse;font-size:9px;margin-bottom:10px;}
+table{width:100%;border-collapse:collapse;font-size:9px;margin-bottom:10px;table-layout:fixed;}
 thead tr{background:linear-gradient(135deg,var(--rd),var(--r));}
 thead th{color:#fff;padding:7px 9px;text-align:left;font-weight:700;font-size:8.5px;}
+thead th:nth-child(1){width:32%;}
+thead th:nth-child(2){width:48%;}
+thead th:nth-child(3){width:20%;}
 tbody tr:nth-child(even){background:#fafafa;}
 tbody tr:hover{background:#fff8e1;}
 tbody td{padding:6px 9px;color:#333;border-bottom:1px solid #f0f0f0;vertical-align:top;}
@@ -321,6 +327,25 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
         <div class="dif-text">Atendemos emergencias y renovaciones de certificado con prioridad. Tu certificado no vence sin que te avisemos.</div>
       </div>
     </div>
+
+    <!-- Franja clientes -->
+    <div style="margin-top:10px;padding:10px 12px;background:linear-gradient(135deg,#0a0a0a,#1a0000);border-radius:10px;flex-shrink:0;">
+      <div style="font-size:7px;font-weight:800;color:#F9A825;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">EMPRESAS QUE CONFÍAN EN NOSOTROS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">KFC Ecuador</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Supermercados TIA</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Novocentro</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Sky Spa</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Cebiches de la Rumiñahui</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Condominio The Point</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Kobe Sushi</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Corporal Gym</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">CONGAS</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Clínicas privadas</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Edificios y condominios</span>
+        <span style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-size:8px;font-weight:600;padding:4px 9px;border-radius:4px;">Bodegas industriales</span>
+      </div>
+    </div>
   </div>
   <div class="pi-footer">
     <span class="pi-footer-text">www.previfuego.com · Guayaquil, Ecuador</span>
@@ -399,8 +424,8 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
     <div class="sec-sub">Solución completa en un solo proveedor</div>
     <div class="sec-div"></div>
 
-    <div class="svc-grid" style="grid-template-columns:1fr 1fr;">
-      <div class="svc-card">
+    <div class="svc-grid" style="grid-template-columns:1fr 1fr;flex:none;grid-auto-rows:auto;">
+      <div class="svc-card" style="height:100mm;">
         <div class="svc-photo"><img src="img/bombas ci/bom-02.webp" alt="Bombas CI" loading="lazy"></div>
         <div class="svc-body">
           <div class="svc-tag">NFPA 20</div>
@@ -408,7 +433,7 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
           <div class="svc-desc">Instalación de gabinetes con manguera, tomas siamesas, bombas centrífugas y Jockey. Redes de tubería schedule 40 y 10. Toda la red contra incendios de tu edificio.</div>
         </div>
       </div>
-      <div class="svc-card">
+      <div class="svc-card" style="height:100mm;">
         <div class="svc-photo"><img src="img/capacitaciones/cap-04.webp" alt="Capacitaciones brigadas" loading="lazy"></div>
         <div class="svc-body">
           <div class="svc-tag">Brigadas</div>
@@ -451,11 +476,11 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
     </div>
 
     <!-- Galería pequeña de productos -->
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;">
-      <div style="border-radius:7px;overflow:hidden;height:28mm;"><img src="img/extintores/ext-13.webp" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-      <div style="border-radius:7px;overflow:hidden;height:28mm;"><img src="img/extintores/ext-20.webp" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-      <div style="border-radius:7px;overflow:hidden;height:28mm;"><img src="img/sist co2/co2-07.webp" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-      <div style="border-radius:7px;overflow:hidden;height:28mm;"><img src="img/extintores/ext-24.webp" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;flex:1;min-height:0;">
+      <div style="border-radius:7px;overflow:hidden;min-height:0;"><img src="img/extintores/ext-13.webp" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+      <div style="border-radius:7px;overflow:hidden;min-height:0;"><img src="img/extintores/ext-20.webp" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+      <div style="border-radius:7px;overflow:hidden;min-height:0;"><img src="img/sist co2/co2-07.webp" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
+      <div style="border-radius:7px;overflow:hidden;min-height:0;"><img src="img/extintores/ext-24.webp" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>
     </div>
   </div>
   <div class="pi-footer">
@@ -481,39 +506,39 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
 
     <!-- Galería 3x4 de fotos reales -->
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;flex:1;">
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/extintores/ext-01.webp" loading="lazy">
         <div class="trab-caption">Recarga masiva de extintores PQS</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/extintores/ext-08.webp" loading="lazy">
         <div class="trab-caption">Instalación en edificio corporativo</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/sist co2/co2-01.webp" loading="lazy">
         <div class="trab-caption">Sistema CO₂ cocina industrial</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/rociadores y tuberias ci/roc-01.webp" loading="lazy">
         <div class="trab-caption">Red de rociadores automáticos</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/sistemas deteccion de humo/det-01.webp" loading="lazy">
         <div class="trab-caption">Sistema detección de humo NFPA 72</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/capacitaciones/cap-07.webp" loading="lazy">
         <div class="trab-caption">Capacitación brigadas de emergencia</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/bombas ci/bom-01.webp" loading="lazy">
         <div class="trab-caption">Bomba centrífuga y Jockey</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/extintores/ext-15.webp" loading="lazy">
         <div class="trab-caption">Mantenimiento preventivo anual</div>
       </div>
-      <div class="trab-item" style="height:36mm;">
+      <div class="trab-item">
         <img src="img/rociadores y tuberias ci/roc-06.webp" loading="lazy">
         <div class="trab-caption">Instalación tubería CI schedule 40</div>
       </div>
