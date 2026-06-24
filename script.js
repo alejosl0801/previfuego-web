@@ -4,7 +4,7 @@ function cs(id){if(!_CS[id])_CS[id]={idx:0,total:0};return _CS[id];}
 function buildDots(id){var s=cs(id),el=document.getElementById(id+'-dots');if(!el)return;el.innerHTML='';for(var i=0;i<s.total;i++){var b=document.createElement('button');b.className='carr-dot'+(i===0?' active':'');b.setAttribute('data-i',i);b.setAttribute('aria-label','Foto '+(i+1));(function(n){b.onclick=function(){goSlide(id,n);startAp(id);};})(i);el.appendChild(b);}}
 function goSlide(id,n){var s=cs(id);s.idx=((n%s.total)+s.total)%s.total;applySlide(id);}
 function moveCarr(id,dir){var s=cs(id);goSlide(id,s.idx+dir);startAp(id);}
-function applySlide(id){var s=cs(id);var t=document.getElementById(id+'-track');if(t)t.style.transform='translateX(-'+(s.idx*100)+'%)';var c=document.getElementById(id+'-count');if(c)c.textContent=(s.idx+1)+' / '+s.total;document.querySelectorAll('#'+id+'-dots .carr-dot').forEach(function(d){d.classList.toggle('active',parseInt(d.getAttribute('data-i'))===s.idx);});}
+function applySlide(id){var s=cs(id);var t=document.getElementById(id+'-track');if(t){t.style.willChange='transform';t.style.transform='translateX(-'+(s.idx*100)+'%)';setTimeout(function(){if(t)t.style.willChange='';},450);}var c=document.getElementById(id+'-count');if(c)c.textContent=(s.idx+1)+' / '+s.total;document.querySelectorAll('#'+id+'-dots .carr-dot').forEach(function(d){d.classList.toggle('active',parseInt(d.getAttribute('data-i'))===s.idx);});}
 
 /* Auto-count slides — no more hardcoded numbers */
 function initCarr(id){
@@ -24,10 +24,12 @@ function switchCat(cat,btn){
     g.classList.toggle('visible',cat==='all'||g.id==='gal-'+cat);
   });
   if(cat==='all'){
+    grid.classList.add('show-all');
     grid.style.gridTemplateColumns='';
     grid.style.maxWidth='';
     grid.style.margin='';
   }else{
+    grid.classList.remove('show-all');
     grid.style.gridTemplateColumns='1fr';
     grid.style.maxWidth='640px';
     grid.style.margin='0 auto';
@@ -178,8 +180,19 @@ document.addEventListener('DOMContentLoaded',function(){
     startAp(carr.id);
   });
 
+  /* Sector items — tap to expand on mobile */
+  document.querySelectorAll('.sector-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      if(window.innerWidth>500)return;
+      var open=item.classList.contains('expanded');
+      document.querySelectorAll('.sector-item').forEach(function(i){i.classList.remove('expanded');});
+      if(!open)item.classList.add('expanded');
+    });
+  });
+
   /* Show all gallery groups */
   document.querySelectorAll('.gal-group').forEach(function(g){g.classList.add('visible');});
+  var galGrid=document.getElementById('galGroups');if(galGrid)galGrid.classList.add('show-all');
 
   /* Contadores animados */
   var counters=document.querySelectorAll('.counter[data-target]');
