@@ -4,14 +4,14 @@
 
 ## 1. Condominio The Point ⭐ CLIENTE PRIORITARIO
 
-**Estado:** Cotización enviada — esperando respuesta
+**Estado:** Correo enviado + proforma adjunta — esperando respuesta
 
 ### Contacto
 - Nombre: Gabriel Pachay
 - Cargo: Asistente Administrativo — Piso 1
 - Empresa administradora: TECDIAR S.A. (activa desde 2002, 61 empleados)
 - Correos copiados: Jefe Técnico + Administrador + Asistente Administrativo
-- Correo recibido marcado de importancia alta
+- Correo recibido marcado de importancia alta por el cliente
 
 ### Edificio
 - Torre The Point — edificio más alto de Ecuador
@@ -21,6 +21,7 @@
 - Último piso: club ejecutivo con gym, jacuzzi, sauna, bar y restaurante
 - Ubicado en Puerto Santa Ana / Ciudad del Río, frente al Malecón
 - Construido por Pronobis S.A., inaugurado 2013 — 50,000 m²
+- **Cliente más grande en la historia de Previfuego** (anterior récord: 90 extintores distribuidos en fechas)
 
 ### Listado de extintores (219 unidades)
 
@@ -34,9 +35,11 @@
 | CO₂ 5 lbs | 19 |
 | **TOTAL** | **219** |
 
-También solicitaron cotizar cambio de sticker adhesivo por unidad.
+### Stickers / etiquetas
+- **Etiqueta de control de carga anual** (la que se renueva cada año): **GRATIS**, incluida en el servicio
+- **Etiqueta instructiva completa** (la grande que recorre todo el extintor): **costo adicional a definir** — se debe preguntar al cliente cuál es la que necesitan antes de incluirla en proforma adicional
 
-### Precios cotizados en proforma
+### Precios cotizados
 
 | Tipo | Cant. | Lbs | Total lbs | Precio unit. | Subtotal |
 |------|-------|-----|-----------|-------------|---------|
@@ -50,21 +53,23 @@ También solicitaron cotizar cambio de sticker adhesivo por unidad.
 
 - PQS: **$0.70/lb** (mercado cobra $0.90–$1.00/lb)
 - CO₂: **$0.665/lb**
+- Si el cliente presenta una proforma más baja de otro proveedor: Alejandro puede bajar aún más el precio
 
 ### Análisis de costos internos
 
-**CO₂ — costo real:**
-- Proveedor cobra $0.89/kg (IVA cruzado, neutro)
-- Costo por libra: $0.89 ÷ 2.205 = **$0.404/lb**
+**CO₂:**
+- Proveedor cobra $0.89/kg (IVA cruzado — neutro para Previfuego)
+- Conversión: 1 kg = 2.205 lbs → costo real = $0.89 ÷ 2.205 = **$0.404/lb**
 - Ganancia por libra: $0.665 − $0.404 = **$0.261/lb** (~39% margen)
 
-**PQS — costo real:**
+**PQS:**
 - Sacos de 25 kg a $22.28 c/u → $0.404/lb
-- En recarga se recupera el 40% del polvo viejo — solo se invierte el 60%
-- Costo real por extintor de 10 lbs: 6 lbs × $0.404 = **$2.42**
+- **Regla de recuperación: se recupera el 40% del polvo viejo — solo se invierte el 60% en cada recarga**
+- Ejemplo: extintor 10 lbs → solo se gastan 6 lbs nuevas ($2.42), no 10
+- **Fecha de llegada del PQS importado: 8 de julio de 2026**
 - Ganancia por libra cobrada: $0.70 − $0.404 = **$0.296/lb** (~42% margen)
 
-**Resumen financiero del pedido:**
+**Resumen financiero:**
 
 | Concepto | Ingreso | Costo |
 |----------|---------|-------|
@@ -75,7 +80,13 @@ También solicitaron cotizar cambio de sticker adhesivo por unidad.
 
 **Ganancia neta estimada: ~$678 — margen ~40%**
 
-### Correo enviado
+### Logística importante
+- Previfuego tiene **40–50 extintores de reemplazo disponibles** — no alcanza para dejar uno en cada punto de las 417 oficinas
+- Si se necesitan más reemplazos: abrir extintores nuevos de caja como provisionales
+- El retiro se hará en **2–3 viajes** (furgoneta propia + posible alquiler de camioneta)
+- Cronograma a coordinar con el cliente — no se especifica al cliente la logística interna de viajes
+
+### Correo enviado al cliente
 
 **Asunto:** Re: Cotización de Recarga Extintores - Condominio The Point
 
@@ -99,7 +110,7 @@ Jefe de Operaciones y Asesor de Proyectos
 Previfuego / Pyroshield
 📞 0983583325
 
-### Observaciones de la proforma
+### Observaciones de la proforma (7)
 
 **OBSERVACIÓN 1. ACCESORIOS Y REPUESTOS:** ACCESORIOS O REPUESTOS QUE SE ENCUENTREN EN MAL ESTADO O DAÑADOS NO ESTÁN INCLUIDOS EN ESTA PROFORMA Y SERÁN DETALLADOS EN UNA PROFORMA ADICIONAL. LA VERIFICACIÓN VISUAL SE REALIZA AL RETIRO Y LA CONFIRMACIÓN EN TALLER TRAS INSPECCIÓN TÉCNICA INTERNA Y EXTERNA DE CADA UNIDAD. *(279 caracteres)*
 
@@ -115,11 +126,18 @@ Previfuego / Pyroshield
 
 **OBSERVACIÓN 7. GARANTÍA DEL SERVICIO:** SE GARANTIZA EL FUNCIONAMIENTO DE CADA EXTINTOR POR UN PERÍODO DE UN AÑO A PARTIR DE LA FECHA DE REALIZACIÓN DEL SERVICIO, SIEMPRE Y CUANDO EL EQUIPO SE CONSERVE EN LAS CONDICIONES EN LAS QUE FUE ENTREGADO Y NO HAYA SIDO MANIPULADO, DESCARGADO O SOMETIDO A CONDICIONES INADECUADAS DE ALMACENAMIENTO.
 
+### Próximos pasos
+- [ ] Esperar respuesta del cliente
+- [ ] Si responden con proforma más baja de otro proveedor: bajar precio y reconquistar
+- [ ] Confirmar con cliente qué tipo de sticker necesitan (control de carga gratis / instructivo = costo adicional)
+- [ ] Coordinar cronograma de retiro una vez confirmado el trabajo
+- [ ] Considerar enviar catálogo corporativo Previfuego/Pyroshield como material de apoyo
+
 ---
 
 ## 2. Corporal Gym
 
-**Estado:** Correo pendiente de enviar
+**Estado:** Correo pendiente de enviar (lead recibido el 23/06/2026)
 
 ### Contacto
 - Nombre: Jean
@@ -133,7 +151,7 @@ Previfuego / Pyroshield
 
 ### Situación
 - En proceso de remodelación
-- Extintores probablemente descargados — hubo mucho humo durante reparación del sauna y no tenían cómo controlarlo
+- Extintores probablemente descargados: hubo mucho humo durante reparación del sauna y no tenían con qué controlarlo
 - Oportunidad: recarga + mantenimiento post-remodelación + quedar en regla ante Bomberos
 
 ### Correo a enviar
@@ -157,6 +175,11 @@ Alejandro López
 Jefe de Operaciones y Asesor de Proyectos
 Previfuego / Pyroshield
 📞 0983583325
+
+### Próximos pasos
+- [ ] Enviar correo a jrodriguez@corporalgym.net desde ventas_previfuego@hotmail.com
+- [ ] Esperar respuesta y coordinar visita técnica gratuita
+- [ ] Levantar inventario de extintores en cada sede
 
 ---
 
