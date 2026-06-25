@@ -255,20 +255,75 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
 
 /* ── NUEVA ESTRUCTURA PORTADA COMBINADA ── */
 .page-combined{height:297mm;overflow:hidden;page-break-after:always;display:flex;flex-direction:column;}
-.cover-split{flex:0 0 144mm;height:144mm;display:flex;background:#0a0a0a;overflow:hidden;position:relative;}
-.cover-left{flex:0 0 58%;display:flex;flex-direction:column;justify-content:space-between;padding:7mm 10mm 7mm 13mm;overflow:hidden;position:relative;z-index:1;clip-path:polygon(0 0,100% 0,89% 100%,0 100%);}
+.cover-split{flex:0 0 144mm;height:144mm;display:flex;background:linear-gradient(135deg,#040404 0%,#110000 45%,#040404 100%);overflow:hidden;position:relative;}
+
+/* Left panel */
+.cover-left{flex:0 0 58%;display:flex;flex-direction:column;justify-content:space-between;padding:7mm 10mm 7mm 16mm;overflow:hidden;position:relative;z-index:1;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);}
+
+/* Red vertical accent bar on left edge */
+.cover-left::before{content:'';position:absolute;top:8%;left:8px;bottom:8%;width:3px;background:linear-gradient(to bottom,transparent,#B71C1C 20%,#B71C1C 80%,transparent);z-index:0;border-radius:2px;}
+
+/* Giant watermark "25" behind content */
+.cover-left::after{content:'25';position:absolute;bottom:-8mm;right:14%;font-size:105px;font-weight:900;color:rgba(183,28,28,0.05);line-height:1;pointer-events:none;z-index:0;font-style:italic;}
+
+/* Keep content above pseudo-elements */
+.cover-header-row,.cover-middle,.cover-bottom{position:relative;z-index:1;}
 .cover-header-row{display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .cover-middle{display:flex;flex-direction:column;gap:3px;}
 .cover-bottom{flex-shrink:0;}
-.cover-right{flex:1;overflow:hidden;position:relative;margin-left:-4%;}
-.cover-right img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;}
-.cover-right::before{content:'';position:absolute;top:0;left:0;bottom:0;width:26%;background:linear-gradient(to right,#0a0a0a,transparent);z-index:1;}
+
+/* Right panel: photo with wider blend + red tint */
+.cover-right{flex:1;overflow:hidden;position:relative;margin-left:-5%;}
+.cover-right img{width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block;}
+.cover-right::before{content:'';position:absolute;top:0;left:0;bottom:0;width:42%;background:linear-gradient(to right,#040404,rgba(4,0,0,0.88) 30%,transparent);z-index:1;}
+.cover-right::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(183,28,28,0.06);pointer-events:none;z-index:1;}
 .qs-intro{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#fff;}
 .qs-intro-body{flex:1;display:flex;flex-direction:column;gap:3px;padding:4mm 12mm 3mm;overflow:hidden;}
 .qs-photos-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;flex:1;min-height:0;}
 .qs-photos-row .about-photos{display:contents;}
 .qs-photos-row .about-photo{border-radius:6px;overflow:hidden;min-height:0;}
 .qs-photos-row .about-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+
+/* ══════ COVER EPIC OVERRIDES ══════ */
+
+/* Badge: amber gold */
+.c-badge{background:rgba(249,168,37,0.12)!important;border-color:#F9A825!important;color:#F9A825!important;font-weight:800!important;letter-spacing:1.2px!important;}
+
+/* Logo bigger */
+.c-logo{width:40px!important;height:40px!important;}
+
+/* Brand name */
+.c-brand-name{font-size:11px!important;font-weight:900!important;letter-spacing:1px!important;}
+.c-brand-sub{font-size:7px!important;color:#888!important;letter-spacing:0.5px!important;}
+
+/* Eyebrow with red dot */
+.cover-eyebrow{font-size:7px!important;letter-spacing:2px!important;color:#aaa!important;}
+.ceyebrow-dot{color:#B71C1C!important;font-size:8px!important;margin-right:3px!important;}
+
+/* Title: bigger, bolder, glow */
+.cover-title{font-size:26px!important;line-height:1.07!important;font-weight:800!important;text-shadow:0 2px 30px rgba(183,28,28,0.3)!important;letter-spacing:-0.5px!important;}
+
+/* "Certificada" — red-to-amber gradient text */
+.cover-title span{background:linear-gradient(90deg,#D32F2F 0%,#FF6F00 100%)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;}
+
+/* Description */
+.cover-desc{font-size:7.5px!important;color:#b0b0b0!important;line-height:1.52!important;}
+
+/* Pills: red filled */
+.cover-pill{background:rgba(183,28,28,0.2)!important;border:1px solid rgba(183,28,28,0.5)!important;color:#f0f0f0!important;font-weight:600!important;font-size:6.5px!important;padding:2px 7px!important;border-radius:20px!important;}
+.cover-pills{gap:4px!important;}
+
+/* Cover line: gradient red */
+.cover-line{background:linear-gradient(to right,transparent,#B71C1C 20%,#B71C1C 80%,transparent)!important;height:1.5px!important;margin:4px 0!important;}
+
+/* Stats zone: subtle card + top red border */
+.cover-stats{background:rgba(255,255,255,0.03)!important;border-radius:8px!important;padding:5px 8px!important;border-top:1.5px solid rgba(183,28,28,0.35)!important;}
+.cover-stats>div{border-right:1px solid rgba(255,255,255,0.1)!important;padding:0 8px!important;}
+.cover-stats>div:first-child{padding-left:0!important;}
+.cover-stats>div:last-child{border-right:none!important;padding-right:0!important;}
+.cover-stat-n{font-size:20px!important;font-weight:900!important;letter-spacing:-0.5px!important;}
+.cover-stat-l{font-size:5.5px!important;color:#888!important;line-height:1.3!important;margin-top:2px!important;}
 
 </style>
 </head>
@@ -292,7 +347,7 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
       </div>
       <!-- ZONA 2: Título + Descripción + Pills -->
       <div class="cover-middle">
-        <div class="cover-eyebrow">CATÁLOGO DE SERVICIOS Y PRODUCTOS · 2026</div>
+        <div class="cover-eyebrow"><span class="ceyebrow-dot">●</span> CATÁLOGO DE SERVICIOS Y PRODUCTOS · 2026</div>
         <div class="cover-title">Protección Contra<br>Incendios <span>Certificada</span></div>
         <div class="cover-desc">Más de 25 años protegiendo empresas, edificios y negocios en Guayaquil. Importadores directos de la línea contra incendios: extintores, repuestos, agentes químicos para recarga, accesorios para gabinetes CI y más. Certificación NFPA · Normativa Bomberos Guayaquil.</div>
         <div class="cover-pills">
@@ -311,7 +366,7 @@ td.price{font-weight:800;color:var(--r);white-space:nowrap;}
           <div><div class="cover-stat-n">500<span style="font-size:13px;color:#F9A825">+</span></div><div class="cover-stat-l">Empresas<br>protegidas</div></div>
           <div><div class="cover-stat-n">25<span style="font-size:13px;color:#F9A825">+</span></div><div class="cover-stat-l">Años de<br>experiencia</div></div>
           <div><div class="cover-stat-n">2.400<span style="font-size:13px;color:#F9A825">+</span></div><div class="cover-stat-l">Extintores<br>recargados en 2025-26</div></div>
-          <div><div class="cover-stat-n">24<span style="font-size:11px;color:#F9A825">h</span></div><div class="cover-stat-l">Disponible<br>WhatsApp</div></div>
+          <div><div class="cover-stat-n">&lt;1<span style="font-size:11px;color:#F9A825">h</span></div><div class="cover-stat-l">Respuesta<br>WhatsApp</div></div>
         </div>
       </div>
     </div>
