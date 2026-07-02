@@ -785,7 +785,7 @@ function trackWsp(label){
   <div class="cine-sticky" id="cine-sticky">
     <video class="cine-vid" id="cine-v0" src="https://videos.pexels.com/video-files/35888103/15221269_1920_1080_25fps.mp4" muted loop playsinline preload="auto"></video>
     <video class="cine-vid" id="cine-v1" src="https://videos.pexels.com/video-files/19036346/19036346-hd_720_1280_30fps.mp4" muted loop playsinline preload="metadata"></video>
-    <video class="cine-vid" id="cine-v2" src="https://videos.pexels.com/video-files/34775772/14743044_1920_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
+    <video class="cine-vid" id="cine-v2" src="https://videos.pexels.com/video-files/6741632/6741632-hd_1920_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
     <video class="cine-vid" id="cine-v3" src="https://videos.pexels.com/video-files/32168508/13717509_2048_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
     <canvas id="cine-canvas" aria-hidden="true"></canvas>
     <div class="cine-scene" id="cine-s0">
@@ -1507,105 +1507,6 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
   var sparks = makeParticles(500, 6, 25, -45, 0.12, emberTex, 0.9, THREE.AdditiveBlending);
   var smoke  = makeParticles(220, 12, 25, -45, 3.2, smokeTex, 0.3, THREE.NormalBlending);
 
-  /* ══ 3D PRODUCT MODELS — extintor, detector, rociador (PBR) ══ */
-  var products=[];
-  function addProduct(group, x, y, z, scale){
-    group.position.set(x, y, z);
-    group.scale.set(scale, scale, scale);
-    scene.add(group);
-    products.push({g:group, baseY:y, phase:Math.random()*6});
-    return group;
-  }
-
-  /* Materials */
-  var matRed   = new THREE.MeshPhysicalMaterial({color:0xc41208, roughness:0.28, metalness:0.15, clearcoat:1.0, clearcoatRoughness:0.12});
-  var matChrome= new THREE.MeshStandardMaterial({color:0xd8dde2, roughness:0.15, metalness:0.95});
-  var matBlack = new THREE.MeshStandardMaterial({color:0x141414, roughness:0.55, metalness:0.2});
-  var matWhite = new THREE.MeshStandardMaterial({color:0xf4f4f2, roughness:0.45, metalness:0.05});
-  var matBrass = new THREE.MeshStandardMaterial({color:0xb08d57, roughness:0.3, metalness:0.9});
-  var matLabel = new THREE.MeshStandardMaterial({color:0xfafafa, roughness:0.5, metalness:0.0});
-
-  /* ── EXTINTOR ── */
-  var ext = new THREE.Group();
-  var tank = new THREE.Mesh(new THREE.CylinderGeometry(1,1,2.6,48), matRed);
-  ext.add(tank);
-  var domeT = new THREE.Mesh(new THREE.SphereGeometry(1,48,24,0,Math.PI*2,0,Math.PI/2), matRed);
-  domeT.position.y=1.3; ext.add(domeT);
-  var domeB = new THREE.Mesh(new THREE.SphereGeometry(1,48,24,0,Math.PI*2,Math.PI/2,Math.PI/2), matRed);
-  domeB.position.y=-1.3; ext.add(domeB);
-  var baseRing = new THREE.Mesh(new THREE.CylinderGeometry(1.04,1.08,0.22,48), matBlack);
-  baseRing.position.y=-1.55; ext.add(baseRing);
-  var label = new THREE.Mesh(new THREE.CylinderGeometry(1.005,1.005,0.85,48,1,true), matLabel);
-  label.position.y=0.15; ext.add(label);
-  var neck = new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.24,0.3,32), matChrome);
-  neck.position.y=2.35; ext.add(neck);
-  var valve = new THREE.Mesh(new THREE.CylinderGeometry(0.14,0.14,0.5,24), matChrome);
-  valve.position.y=2.6; ext.add(valve);
-  var hTop = new THREE.Mesh(new THREE.BoxGeometry(1.1,0.09,0.22), matChrome);
-  hTop.position.set(0.28,2.86,0); hTop.rotation.z=-0.06; ext.add(hTop);
-  var hTrig = new THREE.Mesh(new THREE.BoxGeometry(0.95,0.08,0.2), matBlack);
-  hTrig.position.set(0.3,2.62,0); hTrig.rotation.z=0.28; ext.add(hTrig);
-  var gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.17,0.17,0.07,24), matChrome);
-  gauge.rotation.x=Math.PI/2; gauge.position.set(0,2.45,0.24); ext.add(gauge);
-  var gFace = new THREE.Mesh(new THREE.CircleGeometry(0.13,24), new THREE.MeshStandardMaterial({color:0xffffff, roughness:0.3, emissive:0x333333}));
-  gFace.position.set(0,2.45,0.285); ext.add(gFace);
-  var hosePts = [new THREE.Vector3(-0.16,2.55,0), new THREE.Vector3(-0.75,2.2,0.12), new THREE.Vector3(-1.05,1.2,0.15), new THREE.Vector3(-1.05,0.1,0.05), new THREE.Vector3(-1.02,-0.8,0)];
-  var hose = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hosePts), 40, 0.07, 12, false), matBlack);
-  ext.add(hose);
-  var nozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.14,0.35,16), matBlack);
-  nozzle.position.set(-1.02,-1.0,0); ext.add(nozzle);
-  addProduct(ext, 3.1, -0.3, -9, 0.85);
-
-  /* ── DETECTOR DE HUMO ── */
-  var det = new THREE.Group();
-  var dBase = new THREE.Mesh(new THREE.CylinderGeometry(1.15,1.25,0.22,48), matWhite);
-  det.add(dBase);
-  var dDome = new THREE.Mesh(new THREE.SphereGeometry(1.05,48,24,0,Math.PI*2,0,Math.PI/2), matWhite);
-  dDome.scale.y=0.5; dDome.position.y=0.1; det.add(dDome);
-  var dRing = new THREE.Mesh(new THREE.TorusGeometry(1.18,0.045,12,64), matWhite);
-  dRing.rotation.x=Math.PI/2; dRing.position.y=-0.06; det.add(dRing);
-  for(var gi=0; gi<14; gi++){
-    var slot = new THREE.Mesh(new THREE.BoxGeometry(0.16,0.1,0.05), matBlack);
-    var ga = gi/14*Math.PI*2;
-    slot.position.set(Math.cos(ga)*1.02, 0.28, Math.sin(ga)*1.02);
-    slot.lookAt(0, 0.28, 0);
-    det.add(slot);
-  }
-  var ledMat = new THREE.MeshStandardMaterial({color:0xff2200, emissive:0xff2200, emissiveIntensity:2});
-  var led = new THREE.Mesh(new THREE.SphereGeometry(0.09,16,16), ledMat);
-  led.position.set(0.45, 0.52, 0); det.add(led);
-  det.rotation.x = 0.55;
-  addProduct(det, -3.1, 0.5, 5, 0.9);
-
-  /* ── ROCIADOR + TUBERÍA ── */
-  var spr = new THREE.Group();
-  var pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.16,5,24), matRed);
-  pipe.rotation.z=Math.PI/2; pipe.position.y=1.5; spr.add(pipe);
-  var pipeCap1 = new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.15,24), matRed);
-  pipeCap1.rotation.z=Math.PI/2; pipeCap1.position.set(-1.4,1.5,0); spr.add(pipeCap1);
-  var pipeCap2 = pipeCap1.clone(); pipeCap2.position.x=1.4; spr.add(pipeCap2);
-  var drop = new THREE.Mesh(new THREE.CylinderGeometry(0.09,0.09,0.7,16), matBrass);
-  drop.position.y=1.1; spr.add(drop);
-  var sBody = new THREE.Mesh(new THREE.CylinderGeometry(0.13,0.1,0.3,16), matBrass);
-  sBody.position.y=0.68; spr.add(sBody);
-  var arm1 = new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.035,0.75,10), matBrass);
-  arm1.position.set(0.13,0.32,0); arm1.rotation.z=0.35; spr.add(arm1);
-  var arm2 = arm1.clone(); arm2.position.x=-0.13; arm2.rotation.z=-0.35; spr.add(arm2);
-  var defl = new THREE.Mesh(new THREE.CylinderGeometry(0.24,0.24,0.035,24), matBrass);
-  defl.position.y=-0.05; spr.add(defl);
-  var bulb = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.3,10), new THREE.MeshPhysicalMaterial({color:0xff3300, roughness:0.1, metalness:0, transmission:0.6, emissive:0x661100, emissiveIntensity:0.5}));
-  bulb.position.y=0.35; spr.add(bulb);
-  addProduct(spr, 2.4, 0.4, -23, 1.0);
-
-  /* Studio lighting for products: key + cool rim per product */
-  products.forEach(function(p){
-    var key = new THREE.PointLight(0xfff2e0, 1.4, 12);
-    key.position.set(p.g.position.x+2.5, p.g.position.y+3, p.g.position.z+3);
-    scene.add(key);
-    var rim = new THREE.PointLight(0x4060ff, 0.8, 10);
-    rim.position.set(p.g.position.x-2, p.g.position.y+1, p.g.position.z-2.5);
-    scene.add(rim);
-  });
   /* ── Lights (flickering fire light travels with camera) ── */
   var fireLight=new THREE.PointLight(0xff5522, 2.2, 40);
   scene.add(fireLight);
@@ -1678,12 +1579,6 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
     });
     embers.material.opacity=0.75+Math.sin(t*1.3)*0.12;
 
-    /* Products: scroll-linked rotation + gentle float */
-    products.forEach(function(p,i){
-      p.g.rotation.y = t*0.22 + progress*4 + p.phase;
-      p.g.position.y = p.baseY + Math.sin(t*0.8+p.phase)*0.12;
-    });
-    ledMat.emissiveIntensity = 1.2 + Math.sin(t*6)*1.1;
 
 
     /* Scene text opacity + parallax drift */
