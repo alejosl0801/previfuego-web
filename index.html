@@ -621,6 +621,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
 .cine-stats{display:flex;gap:40px;margin-top:30px;}
 .cine-stat-n{font-size:clamp(32px,4vw,56px);font-weight:800;color:#ff4500;text-shadow:0 0 30px rgba(255,69,0,.6);line-height:1;}
 .cine-stat-l{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:4px;}
+.cine-fade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,1,1,.92) 0%,#040101 60%,#0a0202 100%);opacity:0;pointer-events:none;z-index:20;will-change:opacity;}
 @media(max-width:900px){.cine-wrapper{display:none;}}
 </style>
 <!-- Google tag (gtag.js) — se omite si el dispositivo es del propietario -->
@@ -822,6 +823,7 @@ function trackWsp(label){
       <div class="cine-dot on"></div><div class="cine-dot"></div><div class="cine-dot"></div><div class="cine-dot"></div>
     </div>
     <div class="cine-scroll" id="cine-scroll-hint"><span>scroll</span><div class="cine-scroll-bar"></div></div>
+    <div class="cine-fade" id="cine-fade" aria-hidden="true"></div>
   </div>
 </div>
 <div class="hero" id="hero">
@@ -1534,6 +1536,9 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
   var vids=[document.getElementById('cine-v0'),document.getElementById('cine-v1'),document.getElementById('cine-v2'),document.getElementById('cine-v3')];
   var imgs=[null,document.getElementById('cine-i1'),document.getElementById('cine-i2'),document.getElementById('cine-i3')];
   var vidOp=[0.92,0.30,0.42,0.22]; /* humo/fuego como acento; los renders son protagonistas */
+  var fadeEl=document.getElementById('cine-fade');
+  /* Ken Burns por escena: z0→z1 zoom, px/py amplitud de paneo (%) — escena 3 = recorrido profundo sobre la bomba */
+  var kbCfg=[null,{z0:1.18,z1:1.06,px:1.6,py:1.0},{z0:1.14,z1:1.04,px:1.2,py:0.8},{z0:1.34,z1:1.06,px:5.5,py:2.6}];
   /* Scene visibility windows in progress [start, full, fadeStart, end] */
   var windows=[[-0.01,0,0.16,0.25],[0.25,0.32,0.42,0.5],[0.5,0.57,0.67,0.75],[0.75,0.83,1.0,1.01]];
 
@@ -1601,11 +1606,16 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
         else if(!v.paused){ v.pause(); }
       }
       var im=imgs[i];
-      if(im){
+      if(im&&kbCfg[i]){
         im.style.opacity=a;
-        /* Ken Burns: slow zoom-out + drift tied to scroll progress */
-        var kb=1.16-a*0.06;
-        im.style.transform='scale('+kb+') translate('+(Math.sin(t*0.15+i)*1.2)+'%,'+(Math.cos(t*0.12+i)*0.8)+'%)';
+        /* Recorrido de camara: zoom + paneo ligado al progreso local de la escena */
+        var w2=windows[i];
+        var lp=Math.max(0,Math.min(1,(progress-w2[0])/(w2[3]-w2[0])));
+        var cfg=kbCfg[i];
+        var sc=cfg.z0+(cfg.z1-cfg.z0)*lp;
+        var tx=(0.5-lp)*cfg.px*2+Math.sin(t*0.14+i)*0.35;
+        var ty=(0.5-lp)*cfg.py*2+Math.cos(t*0.11+i)*0.25;
+        im.style.transform='scale('+sc+') translate('+tx+'%,'+ty+'%)';
       }
     });
 
@@ -1615,6 +1625,9 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
 
     /* Hide scroll hint after start */
     if(hint) hint.style.opacity=progress>0.04?0:1;
+
+    /* Fundido final: la cinematica se disuelve a oscuro antes de entrar al hero */
+    if(fadeEl) fadeEl.style.opacity=Math.max(0,Math.min(1,(progress-0.90)/0.09));
 
     renderer.render(scene,camera);
   }
