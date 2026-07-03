@@ -786,11 +786,10 @@ function trackWsp(label){
 <div class="cine-wrapper" id="cine-wrapper">
   <div class="cine-sticky" id="cine-sticky">
     <img class="cine-img" id="cine-i1" src="sistemas%20deteccion%20de%20humo/det-02.webp" alt="" aria-hidden="true">
-    <img class="cine-img" id="cine-i2" src="extintores/ext-02.webp" alt="" aria-hidden="true">
     <img class="cine-img" id="cine-i3" src="bombas%20ci/bom-03.webp" alt="" aria-hidden="true">
     <video class="cine-vid" id="cine-v0" src="https://videos.pexels.com/video-files/35888103/15221269_1920_1080_25fps.mp4" muted loop playsinline preload="auto"></video>
     <video class="cine-vid blend" id="cine-v1" src="https://videos.pexels.com/video-files/19036346/19036346-hd_720_1280_30fps.mp4" muted loop playsinline preload="metadata"></video>
-    <video class="cine-vid blend" id="cine-v2" src="https://videos.pexels.com/video-files/7006552/7006552-hd_1920_1080_24fps.mp4" muted loop playsinline preload="metadata"></video>
+    <video class="cine-vid" id="cine-v2" src="https://videos.pexels.com/video-files/7006552/7006552-hd_1920_1080_24fps.mp4" muted loop playsinline preload="metadata"></video>
     <video class="cine-vid blend" id="cine-v3" src="https://videos.pexels.com/video-files/32168508/13717509_2048_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
     <canvas id="cine-canvas" aria-hidden="true"></canvas>
     <div class="cine-scene" id="cine-s0">
@@ -1532,7 +1531,8 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
   var dots=document.querySelectorAll('#cine-dots .cine-dot');
   var hint=document.getElementById('cine-scroll-hint');
   var vids=[document.getElementById('cine-v0'),document.getElementById('cine-v1'),document.getElementById('cine-v2'),document.getElementById('cine-v3')];
-  var imgs=[null,document.getElementById('cine-i1'),document.getElementById('cine-i2'),document.getElementById('cine-i3')];
+  var imgs=[null,document.getElementById('cine-i1'),null,document.getElementById('cine-i3')];
+  var vidOp=[0.92,0.55,0.92,0.22]; /* opacidad por escena: fuego bajo en s3 para no tapar la bomba */
   /* Scene visibility windows in progress [start, full, fadeStart, end] */
   var windows=[[-0.01,0,0.16,0.25],[0.25,0.32,0.42,0.5],[0.5,0.57,0.67,0.75],[0.75,0.83,1.0,1.01]];
 
@@ -1595,7 +1595,7 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
       el.style.transform='translateY('+((1-a)*28)+'px) scale('+(0.97+a*0.03)+')';
       var v=vids[i];
       if(v){
-        v.style.opacity=a*(i===0?0.92:0.55);
+        v.style.opacity=a*vidOp[i];
         if(a>0.02){ if(v.paused){ var pp=v.play(); if(pp&&pp.catch)pp.catch(function(){}); } }
         else if(!v.paused){ v.pause(); }
       }
@@ -1737,23 +1737,41 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
       .to('.hstats',{opacity:1,y:0,duration:0.45,ease:'power2.out'},'-=0.14')
       .to('.hero-img',{opacity:1,x:0,scale:1,duration:0.85,ease:'power3.out'},0.38)
       .call(function(){var img=document.querySelector('.hero-img');if(img)img.classList.add('float-active');});
-    if(typeof ScrollTrigger!=='undefined')
-      gsap.to('#hero-bg',{yPercent:24,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    /* Parallax hero-bg via scroll directo (ScrollTrigger roto en este layout) */
+    var hbEl=document.getElementById('hero-bg'), heroSec=document.getElementById('hero');
+    if(hbEl&&heroSec){
+      window.addEventListener('scroll',function(){
+        var r=heroSec.getBoundingClientRect();
+        if(r.bottom>0&&r.top<window.innerHeight){
+          var pp=Math.min(1,Math.max(0,-r.top/Math.max(1,r.height)));
+          hbEl.style.transform='translateY('+(pp*20)+'%)';
+        }
+      },{passive:true});
+    }
   } else {
     runCounters();
   }
 
-  /* Section scroll animations */
-  if(typeof ScrollTrigger!=='undefined'){
-    [{s:'.sec-tag',y:16,d:0.5},{s:'.sep',y:12,d:0.4},{s:'.sec-h',y:24,d:0.6},
-     {s:'.sec-d',y:20,d:0.55},{s:'.alerta-box',y:28,d:0.6},{s:'.svc',y:24,d:0.5},
-     {s:'.vj',y:22,d:0.5},{s:'.si',y:16,d:0.48},{s:'.fuego-item',y:18,d:0.45},
-     {s:'.sector-item',y:18,d:0.45},{s:'.p-step',y:24,d:0.5},{s:'.cob-i',y:12,d:0.42},{s:'.cc',y:22,d:0.5}
-    ].forEach(function(t){
-      gsap.utils.toArray(t.s).forEach(function(el){
-        gsap.fromTo(el,{opacity:0,y:t.y},{opacity:1,y:0,duration:t.d,ease:'power2.out',
-          scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+  /* Section reveal — IntersectionObserver (ScrollTrigger no lee el scroll en este layout).
+     Si IO no existe o JS falla, todo queda visible por defecto. */
+  if('IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll('.sec-tag,.sep,.sec-h,.sec-d,.alerta-box,.svc,.vj,.si,.fuego-item,.sector-item,.p-step,.cob-i,.cc');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.style.opacity='1';
+          en.target.style.transform='translateY(0)';
+          io.unobserve(en.target);
+        }
       });
+    },{threshold:0.05,rootMargin:'0px 0px -6% 0px'});
+    revealEls.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0) return; /* ya visible: no tocar */
+      el.style.opacity='0';
+      el.style.transform='translateY(22px)';
+      el.style.transition='opacity .6s ease,transform .6s ease';
+      io.observe(el);
     });
   }
 })();
