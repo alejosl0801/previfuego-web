@@ -596,7 +596,7 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
 #cine-canvas{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;z-index:3;}
 .cine-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.5) saturate(1.12);will-change:opacity;z-index:1;}
 .cine-vid.blend{mix-blend-mode:screen;z-index:2;filter:brightness(.85) saturate(1.2);}
-.cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.42) contrast(1.18) saturate(1.1);will-change:opacity,transform;z-index:1;transform:scale(1.12);}
+.cine-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;filter:brightness(.78) contrast(1.08) saturate(1.05);will-change:opacity,transform;z-index:1;transform:scale(1.12);}
 .cine-sticky::after{z-index:4;}
 .cine-sticky::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 30%,rgba(0,0,0,.55) 100%);pointer-events:none;z-index:2;}
 .cine-scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 9vw;opacity:0;pointer-events:none;z-index:10;will-change:opacity,transform;}
@@ -785,11 +785,12 @@ function trackWsp(label){
 <!-- ═══ CINEMATIC SCROLL EXPERIENCE (desktop) ═══ -->
 <div class="cine-wrapper" id="cine-wrapper">
   <div class="cine-sticky" id="cine-sticky">
-    <img class="cine-img" id="cine-i1" src="sistemas%20deteccion%20de%20humo/det-02.webp" alt="" aria-hidden="true">
-    <img class="cine-img" id="cine-i3" src="bombas%20ci/bom-03.webp" alt="" aria-hidden="true">
+    <img class="cine-img" id="cine-i1" src="img/cine/cine-detector.jpg" alt="" aria-hidden="true">
+    <img class="cine-img" id="cine-i2" src="img/cine/cine-extintor.jpg" alt="" aria-hidden="true">
+    <img class="cine-img" id="cine-i3" src="img/cine/cine-bomba.jpg" alt="" aria-hidden="true">
     <video class="cine-vid" id="cine-v0" src="https://videos.pexels.com/video-files/35888103/15221269_1920_1080_25fps.mp4" muted loop playsinline preload="auto"></video>
     <video class="cine-vid blend" id="cine-v1" src="https://videos.pexels.com/video-files/19036346/19036346-hd_720_1280_30fps.mp4" muted loop playsinline preload="metadata"></video>
-    <video class="cine-vid" id="cine-v2" src="https://videos.pexels.com/video-files/7006552/7006552-hd_1920_1080_24fps.mp4" muted loop playsinline preload="metadata"></video>
+    <video class="cine-vid blend" id="cine-v2" src="https://videos.pexels.com/video-files/7006552/7006552-hd_1920_1080_24fps.mp4" muted loop playsinline preload="metadata"></video>
     <video class="cine-vid blend" id="cine-v3" src="https://videos.pexels.com/video-files/32168508/13717509_2048_1080_30fps.mp4" muted loop playsinline preload="metadata"></video>
     <canvas id="cine-canvas" aria-hidden="true"></canvas>
     <div class="cine-scene" id="cine-s0">
@@ -1531,8 +1532,8 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
   var dots=document.querySelectorAll('#cine-dots .cine-dot');
   var hint=document.getElementById('cine-scroll-hint');
   var vids=[document.getElementById('cine-v0'),document.getElementById('cine-v1'),document.getElementById('cine-v2'),document.getElementById('cine-v3')];
-  var imgs=[null,document.getElementById('cine-i1'),null,document.getElementById('cine-i3')];
-  var vidOp=[0.92,0.55,0.92,0.22]; /* opacidad por escena: fuego bajo en s3 para no tapar la bomba */
+  var imgs=[null,document.getElementById('cine-i1'),document.getElementById('cine-i2'),document.getElementById('cine-i3')];
+  var vidOp=[0.92,0.30,0.42,0.22]; /* humo/fuego como acento; los renders son protagonistas */
   /* Scene visibility windows in progress [start, full, fadeStart, end] */
   var windows=[[-0.01,0,0.16,0.25],[0.25,0.32,0.42,0.5],[0.5,0.57,0.67,0.75],[0.75,0.83,1.0,1.01]];
 
