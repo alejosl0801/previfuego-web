@@ -632,17 +632,6 @@ footer{background:#010000;padding:28px 24px;border-top:1px solid rgba(255,255,25
   animation:cineGrainShift 0.5s steps(2) infinite;}
 @keyframes cineGrainShift{0%{transform:translate(0,0);}50%{transform:translate(-2%,1%);}100%{transform:translate(1%,-1%);}}
 
-/* One-off camera shake on cut */
-.cine-shake{animation:cineShake .38s cubic-bezier(.36,.07,.19,.97);}
-@keyframes cineShake{
-  0%{transform:translate(0,0) rotate(0deg);}
-  18%{transform:translate(-1.1%,.6%) rotate(-.35deg) scale(1.008);}
-  36%{transform:translate(.9%,-.5%) rotate(.3deg);}
-  54%{transform:translate(-.5%,.3%) rotate(-.15deg);}
-  72%{transform:translate(.3%,-.2%) rotate(.08deg);}
-  100%{transform:translate(0,0) rotate(0deg);}
-}
-
 .cine-sticky::after{z-index:12;}
 .cine-sticky::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 30%,rgba(0,0,0,.55) 100%);pointer-events:none;}
 .cine-scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 9vw;opacity:0;pointer-events:none;z-index:15;will-change:opacity,transform;}
@@ -1766,12 +1755,6 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
       s.el.style.filter='grayscale('+gray+') brightness('+bright+') contrast('+contr+') saturate(1.05) blur('+blur+'px)';
     });
 
-    /* Camera shake al cortar de una toma a otra */
-    if(dominant!==lastDominant && lastDominant!==-1){
-      stickyEl.classList.remove('cine-shake'); void stickyEl.offsetWidth;
-      stickyEl.classList.add('cine-shake');
-      setTimeout(function(){ stickyEl.classList.remove('cine-shake'); },420);
-    }
     lastDominant=dominant;
 
     /* Flash de transición (bridge) en cada corte de plano */
