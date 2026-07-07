@@ -1643,14 +1643,19 @@ nav.nav-scrolled .nm a{color:var(--ng)!important;}nav.nav-scrolled .nm a:hover{c
     var c=INTRO_END+(i+0.5)*seg;
     s.window=[c-half, c-half*0.35, c+half*0.35, c+half];
   });
+  /* La última foto debe cerrar del todo ANTES de que aparezca el CTA final —
+     si no, los dos textos quedan visibles a la vez y se superponen/ilegibles. */
+  STORY[N-1].window[2]=0.935;
+  STORY[N-1].window[3]=0.955;
   /* límites de corte (para el flash de transición entre tomas) */
   var CUTS=[STORY[0].window[0]].concat(STORY.map(function(s){return s.window[3];}));
 
   /* ── Escena final (CTA) ── */
   var finalEl=document.getElementById('cine-final');
   var lastEnd=STORY[N-1].window[3];
-  /* w2/w3 se dejan fuera de rango [0,1] a propósito: una vez visible, el CTA no debe volver a desvanecerse */
-  var finalWindow=[0.95, 0.975, 2, 2.1];
+  /* Arranca justo cuando la última foto ya cerró — sin solape de texto.
+     w2/w3 fuera de rango [0,1] a propósito: una vez visible, el CTA no vuelve a desvanecerse. */
+  var finalWindow=[0.955, 0.975, 2, 2.1];
 
   /* ── Scroll drives everything ── */
   var progress=0;
