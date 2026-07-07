@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Se Busca – PyroShield</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0b0b0e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .card {
+    width: 540px;
+    height: 540px;
+    background: #0b0b0e;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Fondo de llamas sutil con gradientes */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 90%, rgba(220,60,0,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,100,0,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 20% at 50% 100%, rgba(200,40,0,0.18) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Línea de acento diagonal superior */
+  .accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #e8320a 0%, #ff6b1a 50%, transparent 100%);
+  }
+
+  /* Contenido principal */
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 32px 36px 28px;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e8320a;
+    margin-bottom: 10px;
+  }
+
+  /* Headline */
+  .headline {
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 0.92;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: 6px;
+  }
+
+  .headline em {
+    font-style: normal;
+    color: #e8320a;
+  }
+
+  /* Subtítulo del puesto */
+  .position {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #ff8c42;
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Responsabilidades */
+  .tasks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 22px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.35;
+  }
+
+  .task-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #e8320a;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* Requisito clave */
+  .req {
+    background: rgba(232,50,10,0.12);
+    border: 1px solid rgba(232,50,10,0.3);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 22px;
+  }
+
+  .req strong {
+    color: #ff8c42;
+    font-weight: 700;
+  }
+
+  /* Footer: logo + contacto */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .logo-wrap img {
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: brightness(1.1);
+  }
+
+  .contact {
+    text-align: right;
+  }
+
+  .contact-label {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 3px;
+  }
+
+  .contact-info {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+  }
+
+  .contact-sub {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 1px;
+  }
+
+  /* Número decorativo de fondo */
+  .bg-number {
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    font-size: 320px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.018);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    letter-spacing: -0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="accent-bar"></div>
+  <div class="bg-number">!!</div>
+
+  <div class="content">
+    <div class="eyebrow">Vacante disponible · Guayaquil</div>
+
+    <h1 class="headline">Se<br><em>Busca</em></h1>
+
+    <div class="position">Chofer Multifuncional &nbsp;/&nbsp; Asistente de Campo</div>
+
+    <div class="tasks">
+      <div class="task-item">
+        <div class="task-dot"></div>
+        <span>Conducir furgoneta en rutas de retiro y entrega de extintores</span>
+      </div>
+      <div class="task-item">
+        <div class="task-dot"></div>
+        <span>Apoyo en mantenimiento y recarga de extintores en campo</span>
+      </div>
+      <div class="task-item">
+        <div class="task-dot"></div>
+        <span>Entrega de mercadería y firma de documentos en clientes</span>
+      </div>
+      <div class="task-item">
+        <div class="task-dot"></div>
+        <span>Apoyo en labores de taller (trabajo en equipo, dos personas por ruta)</span>
+      </div>
+      <div class="task-item">
+        <div class="task-dot"></div>
+        <span>Buena actitud, responsabilidad y compromiso con el equipo</span>
+      </div>
+    </div>
+
+    <div class="req">
+      <strong>Requisito principal:</strong> Licencia de conducir vigente tipo B · Disponibilidad inmediata · No se requiere experiencia técnica avanzada
+    </div>
+
+    <div class="footer">
+      <div class="logo-wrap">
+        <img src="img/logo-pyroshield.webp" alt="PyroShield">
+      </div>
+      <div class="contact">
+        <div class="contact-label">Envía tu CV a</div>
+        <div class="contact-info">WhatsApp · Info@pyroshield.ec</div>
+        <div class="contact-sub">previfuego.com.ec</div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
