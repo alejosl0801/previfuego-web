@@ -430,7 +430,7 @@ img { max-width: 100%; display: block; }
 <div class="cine-wrapper" id="cine-wrapper">         <!-- 1300vh de altura para scroll -->
   <div class="cine-sticky" id="cine-sticky">          <!-- sticky top:0; height:100vh -->
     <video class="cine-vid" id="cine-v0" ...>         <!-- video de fondo (Pexels) intro -->
-    <div class="cine-photos" id="cine-photos"></div>  <!-- 14 fotos insertadas por JS -->
+    <div class="cine-photos" id="cine-photos"></div>  <!-- 13 fotos insertadas por JS (s11 eliminada del guion) -->
     <div class="cine-bridge" id="cine-bridge"></div>  <!-- flash de transición entre tomas -->
     <canvas id="cine-canvas"></canvas>                <!-- Three.js: partículas 3D -->
     <div class="cine-godrays"></div>                  <!-- rayos de luz cónicos CSS -->
@@ -486,7 +486,9 @@ img { max-width: 100%; display: block; }
 </div>
 ```
 
-### Las 14 fotos — STORY array (guion)
+### Las 13 fotos — STORY array (guion)
+
+> **Nota de cambio:** originalmente eran 14 fotos. La escena `s11-cilindro-co2-senaletica.jpg` (señalética CO2) fue **eliminada del guion** por decisión posterior — quedan 13 fotos activas en 4 actos. El archivo de imagen sigue existiendo en `img/cine/story/` pero ya no se referencia en el array `STORY` de `index.html`.
 
 | # | Foto | Acto | Alineación | Título | Subtítulo |
 |---|---|---|---|---|---|
@@ -500,10 +502,16 @@ img { max-width: 100%; display: block; }
 | s08 | s08-tanque-gigante-bombas.jpg | sistemas | left | Capacidad calculada para la demanda del sistema. | Tanques y cisternas dimensionados según la demanda hidráulica de la red. |
 | s09 | s09-sala-bombas-moderna.jpg | sistemas | right | Presión constante bajo norma NFPA 20. | Sistemas de bomba principal y bomba jockey para sostener la presión de la red. |
 | s10 | s10-cilindros-previfuego.jpg | sistemas | left | Ingeniería propia, instalación certificada. | Sistemas de supresión con agentes limpios diseñados e instalados por Previfuego. |
-| s11 | s11-cilindro-co2-senaletica.jpg | sistemas | right | Supresión total en áreas de riesgo especial. | Sistemas de CO2 con señalética normada y secuencia de disparo controlada. |
+| ~~s11~~ | ~~s11-cilindro-co2-senaletica.jpg~~ | — | — | **ELIMINADA del guion** | Ya no aparece en el recorrido cinematográfico. |
 | s12 | s12-cocina-industrial.jpg | sistemas | left | Detección y extinción integradas bajo NFPA 96. | Sistemas certificados de supresión para cocinas y campanas industriales. |
 | s13 | s13-equipo-restaurante-1.jpg | equipo | right | Formamos brigadas que saben responder. | Capacitación técnica en prevención y combate de incendios para cadenas y restaurantes. |
 | s14 | s14-equipo-restaurante-2.jpg | equipo | left | 25 años de ingeniería al servicio de tu seguridad. | Diseño, instalación y mantenimiento de sistemas contra incendio bajo normativa NFPA. |
+
+**Corrección adicional (commit `ab99391`):** las escenas del acto "equipo" (s13, s14) tenían encuadre que cortaba los extintores en las manos de las personas, mostrando solo caras — se ajustó `pos` (object-position) para mostrar el cuerpo completo con el extintor visible.
+
+**Corrección adicional (commit `be42694`):** la escena del detector de humo (s01) cortaba el detector blanco fuera de encuadre — se ajustó el `pos` para mantenerlo visible.
+
+**Corrección adicional (commit `b2fc4b4`):** el texto final (CTA de cierre) se superponía con el titular de la última foto (s14) porque ambas ventanas de progreso (`window`) quedaban visibles al mismo tiempo. Se corrigió acotando `STORY[N-1].window[2]` y `[3]` a `0.935`/`0.955` para que la última foto cierre del todo antes de que aparezca el CTA final — bug real de timing, no de caché del navegador.
 
 ### Motor Three.js del cinematic
 
